@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unified Rare-Variant Meta-Regression &amp; Pathway Architecture of Epilepsy (Epi25)</title>
+  <link rel="stylesheet" href="styles.css?v=20261025a" />
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+<body>
+
+  <!-- HERO HEADER -->
+  <header class="hero-header">
+    <div class="container">
+      <div class="badge-row">
+        <span class="badge highlight">Collinearity-Free WLS (Median VIF = 1.019)</span>
+        <span class="badge">missense_ind &amp; GERP Removed</span>
+        <span class="badge">15,772,548 Coding Variants Merged</span>
+        <span class="badge">Ultra-Rare AF &le; 0.0001</span>
+        <span class="badge">Firth 2&times;2 Rescue (100.00%)</span>
+        <span class="badge">35 Strict / 67 Exome-Wide Ultra-Rare Epilepsy Genes</span>
+      </div>
+      <h1 class="hero-title">
+        Unified Ultra-Rare Variant Meta-Regression (AF &lt; 0.0001) &amp; Pathway Architecture of Epilepsy (Epi25)
+      </h1>
+      <p style="font-size: 0.98rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.55rem;">
+        <strong>Manuel A. Rivas</strong> &bull; Department of Biomedical Data Science, Stanford University, Stanford, CA, USA 94305
+      </p>
+      <p class="hero-subtitle">
+        Explore all ultra-rare (AF &le; 0.0001) exome-wide significant epilepsy risk genes across DEE, GGE, NAFE, and Combined Epilepsy (EPI) and their 8 neurobiological systems.
+      </p>
+      <div class="hero-actions">
+        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261025d" target="_blank" class="btn btn-primary">
+          &#128196; Download Ultra-Rare (AF &lt; 0.0001) Manuscript (PDF)
+        </a>
+        <a href="#section-pathways" class="btn btn-outline">
+          &#129516; Ultra-Rare Pathway Architecture (AF &le; 0.0001)
+        </a>
+        <a href="#section-gene-size" class="btn btn-outline">
+          &#128200; Gene Size (AA) vs. &minus;log<sub>10</sub>(p)
+        </a>
+        <a href="#section-figures" class="btn btn-outline">
+          &#128444; Publication Figures (AF &le; 0.0001)
+        </a>
+        <a href="#section-gene-table" class="btn btn-outline">
+          &#128269; Gene-Level Results Table
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY GLOBAL CONTROLS -->
+  <nav class="control-bar">
+    <div class="container">
+      <div class="control-grid">
+        <div class="control-group">
+          <label for="ctrl-af">Allele Frequency Threshold</label>
+          <select id="ctrl-af">
+            <option value="af0001" selected>AF &le; 0.0001 (0.01% — Ultra-Rare)</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="ctrl-spec">Coding Baseline &amp; Estimator</label>
+          <select id="ctrl-spec">
+            <option value="hybrid_nonsyn" selected>Non-Synonymous Coding (Hybrid &beta; + Firth 2&times;2)</option>
+            <option value="hybrid_synbase">Synonymous-Referenced Coding (Hybrid &beta; + Firth 2&times;2)</option>
+            <option value="firth_nonsyn">Pure Firth 2&times;2 Sensitivity (100% Firth Odds Ratios)</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="ctrl-group">Phenotype Cohort</label>
+          <select id="ctrl-group">
+            <option value="ALL" selected>All Cohorts Combined (EPI + DEE + NAFE + GGE)</option>
+            <option value="DEE">DEE — Developmental &amp; Epileptic Encephalopathies (1,938 cases)</option>
+            <option value="GGE">GGE — Genetic Generalized Epilepsy (5,499 cases)</option>
+            <option value="NAFE">NAFE — Non-Acquired Focal Epilepsy (9,219 cases)</option>
+            <option value="EPI">EPI — All Epilepsies Combined (20,979 cases)</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="ctrl-model">Active Collinearity-Free Model</label>
+          <select id="ctrl-model">
+            <option value="M7" selected>M7: AM + LoF + Constraint (3 d.f. Full Unified)</option>
+            <option value="M5">M5: AM + LoF (2 d.f. Pathogenicity + LoF)</option>
+            <option value="M2">M2: AlphaMissense Only (1 d.f.)</option>
+            <option value="M4">M4: LoF + Constraint (2 d.f.)</option>
+            <option value="M1">M1: LoF Only (1 d.f.)</option>
+            <option value="M3">M3: WES HMM Constraint Only (1 d.f.)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content container">
+
+    <!-- LIVE KPI STRIP -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Gene-Phenotype Tests (N &ge; 25)</div>
+        <div class="kpi-value" id="kpi-tests-val">67,022</div>
+        <div class="kpi-sub" id="kpi-tests-sub">Median VIF = 1.019 (17,410 genes)</div>
+      </div>
+      <div class="kpi-card m1" id="kpi-card-M1">
+        <div class="kpi-label">M1: LoF Only (1 df)</div>
+        <div class="kpi-value" id="kpi-val-M1">13 (12)</div>
+        <div class="kpi-sub" id="kpi-sub-M1">p &lt; 3.4e-7</div>
+      </div>
+      <div class="kpi-card m2" id="kpi-card-M2">
+        <div class="kpi-label">M2: AM Only (1 df)</div>
+        <div class="kpi-value" id="kpi-val-M2">10 (8)</div>
+        <div class="kpi-sub" id="kpi-sub-M2">p &lt; 3.4e-7</div>
+      </div>
+      <div class="kpi-card m3" id="kpi-card-M4">
+        <div class="kpi-label">M4: LoF + Constraint (2 df)</div>
+        <div class="kpi-value" id="kpi-val-M4">21 (19)</div>
+        <div class="kpi-sub" id="kpi-sub-M4">p &lt; 3.4e-7</div>
+      </div>
+      <div class="kpi-card m4" id="kpi-card-M5">
+        <div class="kpi-label">M5: AM + LoF (2 df)</div>
+        <div class="kpi-value" id="kpi-val-M5">22 (19)</div>
+        <div class="kpi-sub" id="kpi-sub-M5">p &lt; 3.4e-7</div>
+      </div>
+      <div class="kpi-card m5 active-model" id="kpi-card-M7">
+        <div class="kpi-label">M7: AM + LoF + Con (3 df)</div>
+        <div class="kpi-value" id="kpi-val-M7">26 (22)</div>
+        <div class="kpi-sub" id="kpi-sub-M7">p &lt; 3.4e-7</div>
+      </div>
+    </section>
+
+    <!-- ROW 1: PROGRESSION CHART & UNIFIED VS BROWSER SCATTER -->
+    <div class="chart-row-2col">
+      <div class="section-card" style="margin-bottom: 0;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">1. Collinearity-Free Stepwise Progression (M1 &rarr; M7)</h2>
+            <p class="section-desc">Exome-wide significant associations (<em>p</em> &lt; 3.4&times;10<sup>&minus;7</sup>) without <code>missense_ind</code> or <code>GERP_RS</code> across DEE, GGE, EPI, and NAFE.</p>
+          </div>
+        </div>
+        <div id="plot-progression" class="plot-box"></div>
+      </div>
+
+      <div class="section-card" style="margin-bottom: 0;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">2. Unified Meta-Regression vs. Epi25 Exome Browser Burden</h2>
+            <p class="section-desc">Click any gene point to inspect its stepwise trajectory and orthogonal partial <em>R</em>&sup2; breakdown below.</p>
+          </div>
+        </div>
+        <div id="plot-vs-browser" class="plot-box"></div>
+      </div>
+    </div>
+
+    <!-- ROW 2: GENE TRAJECTORY & ORTHOGONAL PARTIAL R2 INSPECTOR -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">3. Interactive Gene Trajectory &amp; Orthogonal 3-Moderator Partial R&sup2; Inspector</h2>
+          <p class="section-desc" id="inspector-gene-summary">Select any gene from the dropdown or click a row in the table below.</p>
+        </div>
+        <div style="min-width: 360px;">
+          <select id="select-inspector-gene" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: 600;"></select>
+        </div>
+      </div>
+      <div class="chart-row-2col" style="margin-bottom: 0;">
+        <div id="plot-gene-trajectory" class="plot-box" style="height: 360px;"></div>
+        <div id="plot-gene-partial-r2" class="plot-box" style="height: 360px;"></div>
+      </div>
+    </section>
+
+    <!-- ROW 3: DEEP BIOLOGICAL PATHWAY EXPLORER -->
+    <section class="section-card" id="section-pathways">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="pathway-section-title">4. Deep Biological Pathway Architecture — Ultra-Rare Coding Variants (AF &le; 0.0001)</h2>
+          <p class="section-desc">
+            Pathway enrichment is computed at the ultra-rare variant threshold <strong>AF &le; 0.0001</strong> across DisGeNET, GO, Reactome, WikiPathways, HPO, and 8 core neurobiological systems. Click any module card below to filter the scatter plot and gene table.
+          </p>
+        </div>
+      </div>
+      <div class="methods-grid" id="pathway-cards-grid" style="margin-bottom: 1.25rem;"></div>
+      <div class="table-wrapper" style="margin-bottom: 1.25rem; max-height: 340px;">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Database Library</th>
+              <th>Enriched Pathway / Clinical Term (AF &le; 0.0001)</th>
+              <th>Odds Ratio</th>
+              <th>Fisher P-value</th>
+              <th>Overlap</th>
+              <th>Overlapping Significant Epilepsy Genes (AF &le; 0.0001)</th>
+            </tr>
+          </thead>
+          <tbody id="enrichr-table-body"></tbody>
+        </table>
+      </div>
+      <div class="fig-grid" style="grid-template-columns: 1fr;">
+        <div class="fig-card">
+          <a id="link-fig7-pathway-1" href="assets/fig7_pathway_enrichment_network_af0001.png?v=20261025d" target="_blank">
+            <img id="img-fig7-pathway" src="assets/fig7_pathway_enrichment_network_af0001.png?v=20261025d" alt="Figure 7: Ultra-Rare Pathway Enrichment and Functional Architecture of Epilepsy" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 7. Ultra-Rare (AF &le; 0.0001) Multi-Database Pathway Enrichment (DisGeNET / GO / WikiPathways / Reactome / HPO) and Functional Module Breakdown Across DEE, NAFE, GGE, and Combined Epilepsy.</strong></span>
+            <a id="link-fig7-pathway-2" class="fig-open-link" href="assets/fig7_pathway_enrichment_network_af0001.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig11_nanobanana_epilepsy_synapse_ion_channels.png?v=20261025c" target="_blank">
+            <img src="assets/fig11_nanobanana_epilepsy_synapse_ion_channels.png?v=20261025c" alt="Nano Banana Biological Illustration: Cortical Excitatory-Inhibitory Synapse and Ion Channels" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Biological Pathway Illustration 1 (Nano Banana). Cortical Excitatory&ndash;Inhibitory Synapse, Axon Initial Segment Voltage-Gated Ion Channels (SCN1A, SCN8A, KCNQ2, KCNB1, CACNA1A/B/H), SNARE Vesicle Exocytosis (STXBP1, ITSN2), Synaptic Cleft GABA Reuptake (SLC6A1/GAT-1) &amp; LGI1 Bridge, and Postsynaptic GABA<sub>A</sub> (GABRB3, GABRA1) &amp; NMDA/Ras-GAP Signaling (GRIN2D, SYNGAP1, TANC2) (32.3&times; Enriched in Epi25 Exome).</strong></span>
+            <a class="fig-open-link" href="assets/fig11_nanobanana_epilepsy_synapse_ion_channels.png?v=20261025c" target="_blank">&#128269; Open High-Res PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig8_ion_channel_synapse_schematic.png?v=20261025c" target="_blank">
+            <img src="assets/fig8_ion_channel_synapse_schematic.png?v=20261025c" alt="Figure 8: Quantitative Cortical Synapse and Ion Channel Schematic" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 8. Quantitative Molecular Architecture &amp; Discovery Gain Across Axon Initial Segment Cation Channels, Presynaptic SNARE Exocytosis, GABAergic Inhibition, and Postsynaptic Density Scaffolds Across DEE, NAFE, GGE, and EPI.</strong></span>
+            <a class="fig-open-link" href="assets/fig8_ion_channel_synapse_schematic.png?v=20261025c" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig12_nanobanana_gator1_chromatin_neuroimmune_ibd.png?v=20261025c" target="_blank">
+            <img src="assets/fig12_nanobanana_gator1_chromatin_neuroimmune_ibd.png?v=20261025c" alt="Nano Banana Biological Illustration: GATOR1-mTORC1, Chromatin Remodeling, and Neurovascular Architecture" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Biological Pathway Illustration 2 (Nano Banana). Lysosomal GATOR1 Complex &amp; mTORC1 Restraint in Focal Epilepsy (DEPDC5, NPRL3), Neuronal Chromatin Remodeling (CHD2, ANKRD11, SETD1B, KANSL1, NCOR1, TBL1XR1, KDM4A/5B, SP4), Blood&ndash;Brain Barrier Solute Transport (SLC2A1/GLUT1, SLC4A5, SLC25A11, ARV1), and Neuro-Immune Alarmin, Perineuronal ECM &amp; Nuclear LINC Cytoskeletal Architecture (AGER/RAGE, SERPINI2, TRIO, VPS13B, MACF1, SYNE1/2, HSPG2, HMCN1, FRAS1).</strong></span>
+            <a class="fig-open-link" href="assets/fig12_nanobanana_gator1_chromatin_neuroimmune_ibd.png?v=20261025c" target="_blank">&#128269; Open High-Res PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig9_gator1_chromatin_ibd_pleiotropy_map.png?v=20261025c" target="_blank">
+            <img src="assets/fig9_gator1_chromatin_ibd_pleiotropy_map.png?v=20261025c" alt="Figure 9: GATOR1-mTORC1, Chromatin Remodeling, and Neurovascular Architecture Map" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 9. Quantitative Pathway Map of Lysosomal GATOR1&ndash;mTORC1 Nutrient Sensing, Neuronal Chromatin Remodeling, Blood&ndash;Brain Barrier Transport, and Neuro-Immune/Cytoskeletal Loci Across Epilepsy Syndromes.</strong></span>
+            <a class="fig-open-link" href="assets/fig9_gator1_chromatin_ibd_pleiotropy_map.png?v=20261025c" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 3B: RELATIONSHIP BETWEEN M7 -LOG10(P), EXPLAINED VARIANCE R2, AND GENE SIZE (AMINO ACIDS) -->
+    <section class="section-card" id="section-gene-size">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">4B. Relationship Between Ultra-Rare Unified M7 &minus;log<sub>10</sub>(p-value), Explained Variance (R&sup2;), and Gene Size (Amino Acids, L<sub>AA</sub>) at AF &le; 0.0001</h2>
+          <p class="section-desc">
+            Across 67,022 ultra-rare gene&ndash;phenotype tests at AF &le; 0.0001, canonical protein length <em>L</em><sub>AA</sub> correlates linearly with ultra-rare coding variant count <em>M<sub>g</sub></em> (<em>r</em> = +0.908, &approx;0.239 variants/AA), while exhibiting virtually zero correlation with &minus;log<sub>10</sub>(<em>p</em><sub>M7</sub>) (Pearson <em>r</em>(log<sub>10</sub>AA) = +0.0915, Spearman &rho; = +0.0707) and an inverse critical variance law <em>R</em>&sup2;<sub>crit</sub>(<em>L</em><sub>AA</sub>) &approx; 31.8 / (0.239 <em>L</em><sub>AA</sub> + 27.8) where compact synaptic and channel genes (&le;800 AA) achieve massive variance explained (<em>R</em>&sup2; = 20&ndash;64%).
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+          <select id="select-genesize-yaxis" style="padding: 0.48rem 0.7rem; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: 600;">
+            <option value="neglog10_p" selected>Y-Axis: Unified M7 &minus;log10(p-value)</option>
+            <option value="r2_pct">Y-Axis: Explained Variance R&sup2; (%) + Iso-Significance Curve</option>
+          </select>
+        </div>
+      </div>
+      <div class="chart-row-2col" style="margin-bottom: 1.25rem;">
+        <div id="plot-gene-size-scatter" class="plot-box" style="height: 410px;"></div>
+        <div id="plot-gene-size-bins" class="plot-box" style="height: 410px;"></div>
+      </div>
+      <div class="fig-card">
+        <a id="link-fig10-genesize-1" href="assets/fig10_m7_pvalue_vs_gene_size_aa_af0001.png?v=20261025d" target="_blank">
+          <img id="img-fig10-genesize" src="assets/fig10_m7_pvalue_vs_gene_size_aa_af0001.png?v=20261025d" alt="Figure 10: M7 -log10(p) vs Gene Size in Amino Acids at AF <= 0.0001" />
+        </a>
+        <div class="fig-caption">
+          <span><strong>Figure 10 (Ultra-Rare AF &le; 0.0001). 4-Panel Analysis of Unified Model M7 Significance (&minus;log<sub>10</sub> p<sub>M7</sub>), Explained Variance (R&sup2;), and Canonical Protein Length in Amino Acids (L<sub>AA</sub>, GENCODE v44).</strong></span>
+          <a id="link-fig10-genesize-2" class="fig-open-link" href="assets/fig10_m7_pvalue_vs_gene_size_aa_af0001.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 4: VARIANT-LEVEL WLS PROFILE VIEWER -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">5. Variant-Level WLS Meta-Regression Profile Viewer</h2>
+          <p class="section-desc">
+            Inspect individual rare coding variants (sized by inverse-variance weight <em>w<sub>i</sub></em> = 1/SE<sub><em>i</em></sub>&sup2;), showing how Firth 2&times;2 penalized-likelihood log-odds ratios covary with AlphaMissense pathogenicity, pLoF status, and WES HMM mutational constraint.
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+          <select id="select-variant-gene" style="padding: 0.48rem 0.7rem; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: 600;">
+            <option value="SCN1A_DEE" selected>SCN1A (DEE) — NaV1.1 Sodium Channel (M7 p=1.67e-24, Dual AM + LoF)</option>
+            <option value="SCN1A_EPI">SCN1A (EPI) — NaV1.1 All Epilepsies (M7 p=2.14e-21)</option>
+            <option value="STXBP1_DEE">STXBP1 (DEE) — Munc18-1 SNARE Chaperone (M7 p=1.88e-25, R&sup2;=58.1%)</option>
+            <option value="KCNQ2_DEE">KCNQ2 (DEE) — KV7.2 M-Current Channel (M7 p=6.72e-18, AM p=2.9e-13)</option>
+            <option value="DEPDC5_NAFE">DEPDC5 (NAFE) — GATOR1 Lysosomal mTORC1 Brake (M7 p=1.47e-16, R&sup2;=18.8%)</option>
+            <option value="DEPDC5_EPI">DEPDC5 (EPI) — GATOR1 All Epilepsies (M7 p=2.18e-15)</option>
+            <option value="KCNB1_DEE">KCNB1 (DEE) — KV2.1 Delayed Rectifier Channel (M7 p=4.65e-08, AM-driven)</option>
+            <option value="CACNA1A_DEE">CACNA1A (DEE) — CaV2.1 P/Q-Type Calcium Channel (DEE)</option>
+            <option value="CACNA1A_GGE">CACNA1A (GGE) — CaV2.1 P/Q-Type Calcium Channel (GGE)</option>
+            <option value="SP4_GGE">SP4 (GGE) — Neuronal NMDA/AMPA Transcription Factor (M7 p=1.89e-12, R&sup2;=29.5%)</option>
+            <option value="RYR2_GGE">RYR2 (GGE) — Ryanodine Receptor 2 Ca2+ Release Channel (M7 p=1.07e-08)</option>
+            <option value="ANKRD11_GGE">ANKRD11 (GGE) — Chromatin Corepressor</option>
+            <option value="SETD1B_GGE">SETD1B (GGE) — H3K4 Histone Methyltransferase</option>
+            <option value="KANSL1_DEE">KANSL1 (DEE) — NSL Histone Acetyltransferase Scaffold (M7 p=3.08e-08)</option>
+            <option value="SLC4A5_EPI">SLC4A5 (EPI) — Choroid Plexus Na+/HCO3- Cotransporter (M7 p=5.39e-10)</option>
+            <option value="AGER_EPI">AGER (EPI) — HMGB1-RAGE Neuro-Immune Receptor (M7 p=1.66e-07)</option>
+            <option value="SYNE1_DEE">SYNE1 (DEE) — Nesprin-1 Nuclear LINC Scaffold</option>
+            <option value="MACF1_DEE">MACF1 (DEE) — Spectraplakin Cytoskeletal Crosslinker</option>
+            <option value="VPS13B_DEE">VPS13B (DEE) — Endolysosomal Lipid Transfer Channel</option>
+            <option value="FRAS1_GGE">FRAS1 (GGE) — Extracellular Matrix Basement Membrane Complex</option>
+          </select>
+          <select id="select-variant-xaxis" style="padding: 0.48rem 0.7rem; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: 600;">
+            <option value="log_am" selected>X-Axis: AlphaMissense [&minus;log(1 &minus; s_AM)]</option>
+            <option value="log_con">X-Axis: WES HMM Constraint [&minus;log(1 &minus; p_con)]</option>
+          </select>
+        </div>
+      </div>
+      <div id="plot-variant-profile" class="plot-box" style="height: 420px;"></div>
+    </section>
+
+    <!-- ROW 5: INTERACTIVE GENE RESULTS TABLE -->
+    <section class="section-card" id="section-gene-table">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">6. Interactive Gene-Level Results Table (Collinearity-Free Models &amp; Partial R&sup2;)</h2>
+          <p class="section-desc">Click any column header to sort; click any gene row to load its trajectory and partial <em>R</em>&sup2; decomposition in Section 3.</p>
+        </div>
+        <div id="table-count-label" style="font-size: 0.82rem; font-weight: 600; color: #475569;"></div>
+      </div>
+
+      <div class="table-controls">
+        <input type="text" id="input-gene-search" placeholder="Search gene symbol (e.g., SCN1A, KCNQ2, STXBP1, SLC6A1, DEPDC5, SP4, AGER, TRIO)..." />
+        <select id="select-pathway-filter">
+          <option value="ALL" selected>All Biological Pathways</option>
+          <option value="M1_ION_CHANNELS">1. Voltage-Gated Na+, K+ &amp; Ca2+ Ion Channels (12 genes)</option>
+          <option value="M2_SYNAPSE_GABA_GLUTAMATE">2. GABAergic Inhibition &amp; Synaptic Vesicle Fusion (11 genes)</option>
+          <option value="M3_GATOR1_MTOR">3. Lysosomal GATOR1 Complex &amp; mTORC1 Sensing (5 genes)</option>
+          <option value="M4_NEURO_CHROMATIN">4. Neuronal Chromatin Remodeling &amp; Transcription (16 genes)</option>
+          <option value="M5_BBB_METABOLISM">5. Blood&ndash;Brain Barrier &amp; Neuronal Solute Transport (12 genes)</option>
+          <option value="M6_AXONAL_CYTOSKELETON">6. Axonal Cytoskeleton, Nuclear LINC &amp; Motors (13 genes)</option>
+          <option value="M7_ECM_BARRIER">7. Basement Membrane, Perineuronal ECM &amp; Barrier (11 genes)</option>
+          <option value="M8_NEUROIMMUNE_SCAFFOLDS">8. Neuro-Immune Alarmin (HMGB1/RAGE), Autophagy &amp; Scaffolds (15 genes)</option>
+        </select>
+        <select id="select-sig-filter">
+          <option value="all" selected>Show All Loaded Genes</option>
+          <option value="exome">Exome-Wide Significant Only (p &lt; 3.4e-7)</option>
+          <option value="sug">Suggestive &amp; Significant (p &lt; 2.5e-6)</option>
+          <option value="rescued">Novel Rescued Only (Unified p &lt; 3.4e-7 &amp; Browser p &ge; 3.4e-7)</option>
+        </select>
+        <button id="btn-export-csv" class="btn btn-primary" style="background: #0f172a; color: #ffffff;">
+          &#11015; Export Filtered Table (.CSV)
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th data-sort="gene">Gene &#8597;</th>
+              <th data-sort="group">Group &#8597;</th>
+              <th data-sort="aa_len">Length (AA) &#8597;</th>
+              <th data-sort="n_var">N<sub>var</sub> &#8597;</th>
+              <th>pLoF / Mis</th>
+              <th data-sort="vif">VIF &#8597;</th>
+              <th data-sort="p_M1">M1: LoF &#8597;</th>
+              <th data-sort="p_M2">M2: AM &#8597;</th>
+              <th data-sort="p_M3">M3: Con &#8597;</th>
+              <th data-sort="p_M5">M5: AM+LoF &#8597;</th>
+              <th data-sort="p_M7">M7: AM+LoF+Con &#8597;</th>
+              <th data-sort="r2_M7">R&sup2; (M7) &#8597;</th>
+              <th data-sort="p_am">p<sub>AM</sub> (partial R&sup2;) &#8597;</th>
+              <th data-sort="p_lof">p<sub>LoF</sub> (partial R&sup2;) &#8597;</th>
+              <th data-sort="p_con">p<sub>Con</sub> (partial R&sup2;) &#8597;</th>
+              <th data-sort="p_bro">Browser min p &#8597;</th>
+            </tr>
+          </thead>
+          <tbody id="gene-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ROW 6: PUBLICATION FIGURES GALLERY -->
+    <section class="section-card" id="section-figures">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">7. Publication-Quality Figures (300 DPI — Click Any Figure to Open Full-Resolution PNG)</h2>
+          <p class="section-desc">All 12 figures from the collinearity-free Epi25 meta-regression and biological pathway analysis are embedded in the PDF manuscript and displayed below.</p>
+        </div>
+      </div>
+
+      <div class="fig-grid">
+        <div class="fig-card">
+          <a href="assets/fig1_model_progression.png?v=20261025d" target="_blank">
+            <img src="assets/fig1_model_progression.png?v=20261025d" alt="Figure 1: Stepwise Model Progression" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 1. Collinearity-Free Stepwise Discovery Progression Across Models M1&ndash;M7.</strong></span>
+            <a class="fig-open-link" href="assets/fig1_model_progression.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig3_unified_vs_browser_af0001.png?v=20261025d" target="_blank">
+            <img src="assets/fig3_unified_vs_browser_af0001.png?v=20261025d" alt="Figure 2: Unified vs Browser AF 0.0001" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 2. Ultra-Rare Variant Meta-Regression (AF &le; 0.0001, 100% Firth 2&times;2 Rescue) vs. Epi25 Browser Burden Masks.</strong></span>
+            <a class="fig-open-link" href="assets/fig3_unified_vs_browser_af0001.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig4_moderator_trajectories.png?v=20261025d" target="_blank">
+            <img src="assets/fig4_moderator_trajectories.png?v=20261025d" alt="Figure 3: Moderator Trajectories" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 3. Stepwise Moderator Trajectories Across Collinearity-Free Models (M1 &rarr; M7) for Flagship Epilepsy Genes.</strong></span>
+            <a class="fig-open-link" href="assets/fig4_moderator_trajectories.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig5_af001_vs_af0001_and_r2.png?v=20261025d" target="_blank">
+            <img src="assets/fig5_af001_vs_af0001_and_r2.png?v=20261025d" alt="Figure 4: Orthogonal Partial R2 Decomposition" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 4. Ultra-Rare Concordance and True Orthogonal Moderator Partial R&sup2; Decomposition.</strong></span>
+            <a class="fig-open-link" href="assets/fig5_af001_vs_af0001_and_r2.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig6_scn1a_depdc5_variant_profiles.png?v=20261025d" target="_blank">
+            <img src="assets/fig6_scn1a_depdc5_variant_profiles.png?v=20261025d" alt="Figure 5: SCN1A, KCNQ2, STXBP1, and DEPDC5 Variant Profiles" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 5. Variant-Level WLS Meta-Regression Profiles for <em>SCN1A</em>, <em>KCNQ2</em>, <em>STXBP1</em>, and <em>DEPDC5</em> Across Epilepsy Syndromes.</strong></span>
+            <a class="fig-open-link" href="assets/fig6_scn1a_depdc5_variant_profiles.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig7_pathway_enrichment_network_af0001.png?v=20261025d" target="_blank">
+            <img src="assets/fig7_pathway_enrichment_network_af0001.png?v=20261025d" alt="Figure 6: Ultra-Rare Pathway Enrichment Network" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 6. Ultra-Rare (AF &le; 0.0001) Multi-Database Pathway Enrichment (DisGeNET / GO / WikiPathways / Reactome / HPO) and Functional Module Breakdown Across DEE, NAFE, GGE, and EPI.</strong></span>
+            <a class="fig-open-link" href="assets/fig7_pathway_enrichment_network_af0001.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig8_ion_channel_synapse_schematic.png?v=20261025d" target="_blank">
+            <img src="assets/fig8_ion_channel_synapse_schematic.png?v=20261025d" alt="Figure 7: Quantitative Cortical Synapse and Ion Channel Schematic" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 7. Quantitative Molecular Schematic of Axon Initial Segment Cation Channels, SNARE Vesicle Fusion, GABAergic Inhibition, and Postsynaptic Density Scaffolds.</strong></span>
+            <a class="fig-open-link" href="assets/fig8_ion_channel_synapse_schematic.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig9_gator1_chromatin_ibd_pleiotropy_map.png?v=20261025d" target="_blank">
+            <img src="assets/fig9_gator1_chromatin_ibd_pleiotropy_map.png?v=20261025d" alt="Figure 8: GATOR1-mTORC1, Chromatin Remodeling, and Neurovascular Architecture Map" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 8. Lysosomal GATOR1&ndash;mTORC1 Focal Epilepsy Architecture, Neuronal Chromatin Remodeling, Blood&ndash;Brain Barrier Transport, and Neuro-Immune/Cytoskeletal Loci.</strong></span>
+            <a class="fig-open-link" href="assets/fig9_gator1_chromatin_ibd_pleiotropy_map.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig10_m7_pvalue_vs_gene_size_aa_af0001.png?v=20261025d" target="_blank">
+            <img src="assets/fig10_m7_pvalue_vs_gene_size_aa_af0001.png?v=20261025d" alt="Figure 9: M7 -log10(p) vs Gene Size in Amino Acids at AF <= 0.0001" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 9. Ultra-Rare (AF &le; 0.0001) Relationship Between Unified Meta-Regression Significance (&minus;log<sub>10</sub> p<sub>M7</sub>), Explained Variance (R&sup2;), and Canonical Protein Length in Amino Acids (L<sub>AA</sub>).</strong></span>
+            <a class="fig-open-link" href="assets/fig10_m7_pvalue_vs_gene_size_aa_af0001.png?v=20261025d" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig11_nanobanana_epilepsy_synapse_ion_channels.png?v=20261025c" target="_blank">
+            <img src="assets/fig11_nanobanana_epilepsy_synapse_ion_channels.png?v=20261025c" alt="Figure 11: Nano Banana Cortical Synapse and Ion Channels" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 11 (Nano Banana Biological Illustration). Cortical Excitatory&ndash;Inhibitory Synapse, Axon Initial Segment Voltage-Gated Ion Channels, SNARE Vesicle Fusion, and GABA/NMDA Receptor Architecture in Epilepsy.</strong></span>
+            <a class="fig-open-link" href="assets/fig11_nanobanana_epilepsy_synapse_ion_channels.png?v=20261025c" target="_blank">&#128269; Open High-Res PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig12_nanobanana_gator1_chromatin_neuroimmune_ibd.png?v=20261025c" target="_blank">
+            <img src="assets/fig12_nanobanana_gator1_chromatin_neuroimmune_ibd.png?v=20261025c" alt="Figure 12: Nano Banana GATOR1, Chromatin & Neuro-Immune Architecture" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 12 (Nano Banana Biological Illustration). GATOR1&ndash;mTORC1 Nutrient Sensing, Neuronal Chromatin Remodeling, Blood&ndash;Brain Barrier Solute Transport, and Neuro-Immune/Cytoskeletal Architecture in Epilepsy (Epi25).</strong></span>
+            <a class="fig-open-link" href="assets/fig12_nanobanana_gator1_chromatin_neuroimmune_ibd.png?v=20261025c" target="_blank">&#128269; Open High-Res PNG</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 7: ACKNOWLEDGEMENTS & DATA RESOURCES -->
+    <section class="section-card" id="section-acknowledgements">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">8. Acknowledgements &amp; Data Resources</h2>
+          <p class="section-desc">
+            Author: <strong>Manuel A. Rivas</strong> (Department of Biomedical Data Science, Stanford University, Stanford, CA, USA 94305).
+          </p>
+        </div>
+      </div>
+      <div style="font-size: 0.85rem; line-height: 1.65; color: #334155;">
+        <p style="margin-bottom: 0.75rem;">
+          <strong>Epi25 Exome Sequencing Browser (<a href="https://epi25.broadinstitute.org" target="_blank">https://epi25.broadinstitute.org</a>) &amp; Epi25 Collaborative:</strong>
+          In accordance with the citation and acknowledgement requirements of <a href="https://epi25.broadinstitute.org" target="_blank">epi25.broadinstitute.org</a>, we cite the consortium's primary publication, <em>&ldquo;Exome sequencing of 20,979 individuals with various epilepsies reveals 26 risk genes&rdquo;</em> (Epi25 Collaborative / Chen et al., <em>Nature Neuroscience</em> <strong>27</strong>, 1864&ndash;1879, 2024; <a href="https://doi.org/10.1038/s41593-024-01747-8" target="_blank">doi:10.1038/s41593-024-01747-8</a>), and provide a link to the browser (<a href="https://epi25.broadinstitute.org" target="_blank">https://epi25.broadinstitute.org</a>; public data download <a href="https://storage.googleapis.com/exome-results-browsers-public/downloads/2022-12-01/Epi25/Epi25_variant_results.tsv.bgz" target="_blank">Epi25_variant_results.tsv.bgz</a>).
+        </p>
+        <blockquote style="margin: 0.75rem 0; padding: 0.8rem 1.1rem; background: #f8fafc; border-left: 4px solid #2563eb; font-style: italic;">
+          &ldquo;The authors would like to thank the Epi25 Collaborative and the individual study teams that contributed to this resource. A full list of Epi25 collaborators can be found at <a href="http://epi-25.org" target="_blank">epi-25.org</a>.&rdquo;
+        </blockquote>
+        <p style="margin-bottom: 0.5rem;">
+          The Epi25 Collaborative is a global collaboration committed to sequencing and deep-phenotyping patients with epilepsy to advance gene discovery across Developmental and Epileptic Encephalopathies (DEE), Genetic Generalized Epilepsy (GGE), and Non-Acquired Focal Epilepsy (NAFE), supported by the National Human Genome Research Institute (NHGRI) Centers for Common Disease Genomics (CCDG) program (grant <strong>UM1 HG008895</strong>) and the Stanley Center for Psychiatric Research at the Broad Institute of MIT and Harvard.
+        </p>
+        <p style="margin-bottom: 0;">
+          <strong>Functional Annotation &amp; Constraint Resources:</strong> We thank Google DeepMind (Cheng et al., <em>Science</em> 2023) for proteome-wide AlphaMissense pathogenicity predictions, <strong>Aguilar, Rivas &amp; Rivas</strong> (<em>medRxiv</em> 2025; <a href="https://github.com/healthcare-medicine-ai/wgs-constraint-llm" target="_blank">wgs-constraint-llm</a>; <code>10.1101/2024.06.27.24309590v3</code>) for base-pair resolution WES hidden Markov model mutational constraint probabilities and the unified rare-variant meta-regression framework, and the GENCODE Consortium (Frankish et al., <em>Nucleic Acids Research</em> 2021) for human reference gene annotations.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>Manuel A. Rivas</strong> &bull; Department of Biomedical Data Science, Stanford University, Stanford, CA, USA 94305 &bull;
+    Unified Rare-Variant Meta-Regression &amp; Pathway Architecture of Epilepsy (Epi25) &bull;
+    Reference: Aguilar, Rivas &amp; Rivas (2025) <code>medRxiv 10.1101/2024.06.27.24309590v3</code>
+  </footer>
+
+  <script src="data.js?v=20261025b"></script>
+  <script src="app.js?v=20261025b"></script>
+</body>
+</html>
