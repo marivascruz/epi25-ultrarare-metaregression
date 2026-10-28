@@ -374,14 +374,30 @@
     <section class="section-card" id="section-gene-table">
       <div class="section-header">
         <div>
-          <h2 class="section-title">6. Interactive Gene-Level Results Table (Collinearity-Free Models &amp; Partial R&sup2;)</h2>
-          <p class="section-desc">Click any column header to sort; click any gene row to load its trajectory and partial <em>R</em>&sup2; decomposition in Section 3.</p>
+          <h2 class="section-title">6. Interactive Gene-Level Results Table (Omnibus P, Length-Invariant R&sup2;, Moderator Slopes &beta; &amp; Benchmark &Delta;log-OR)</h2>
+          <p class="section-desc">
+            Click any column header or use the <strong>Ranking Strategy</strong> selector below to rank genes by <strong>Omnibus <em>p</em>-value</strong>, <strong>Gene-Length-Invariant Explained Variance (<em>R</em>&sup2;<sub>M7</sub>)</strong>, <strong>Empirical Bayes Shrunk Moderator Slopes (&beta;&#770;<sub><em>k</em></sub><sup>EB</sup>) / 95% Lower Confidence Bounds (&beta;&#770;<sub><em>k</em></sub><sup>LCB</sup>)</strong>, or <strong>Composite Benchmark Pathogenic Variant Effect (&Delta;log-OR<sub>bench</sub>)</strong>. Selecting an effect-size ranking automatically applies the Stage-1 Exome-Wide Significance Gate (<em>p</em> &lt; 3.0&times;10<sup>&minus;7</sup>).
+          </p>
         </div>
         <div id="table-count-label" style="font-size: 0.82rem; font-weight: 600; color: #475569;"></div>
       </div>
 
       <div class="table-controls">
         <input type="text" id="input-gene-search" placeholder="Search gene symbol (e.g., SCN1A, KCNQ2, STXBP1, SLC6A1, DEPDC5, SP4, AGER, TRIO)..." />
+        <select id="select-ranking-preset" style="border-color: #0d9488; font-weight: 700; color: #0f172a; background: #f0fdfa;">
+          <option value="p_M7:asc" selected>Rank by: Unified M7 Omnibus p-value (Default)</option>
+          <option value="r2_M7:desc">Rank by: Total Explained Variance R&sup2; (M7, Length-Invariant)</option>
+          <option value="b_bench:desc">Rank by: Benchmark Variant Effect &Delta;log-OR (EB Composite)</option>
+          <option value="eb_am:desc">Rank by: AlphaMissense Slope &beta;_AM (EB Shrunk)</option>
+          <option value="lcb_am:desc">Rank by: AlphaMissense Slope &beta;_AM (95% Lower Conf. Bound)</option>
+          <option value="b_am:desc">Rank by: AlphaMissense Slope &beta;_AM (Raw WLS)</option>
+          <option value="eb_lof:desc">Rank by: pLoF Slope &beta;_LoF (EB Shrunk)</option>
+          <option value="lcb_lof:desc">Rank by: pLoF Slope &beta;_LoF (95% Lower Conf. Bound)</option>
+          <option value="b_lof:desc">Rank by: pLoF Slope &beta;_LoF (Raw WLS)</option>
+          <option value="eb_con:desc">Rank by: Constraint Slope &beta;_Con (EB Shrunk)</option>
+          <option value="lcb_con:desc">Rank by: Constraint Slope &beta;_Con (95% Lower Conf. Bound)</option>
+          <option value="b_con:desc">Rank by: Constraint Slope &beta;_Con (Raw WLS)</option>
+        </select>
         <select id="select-pathway-filter">
           <option value="ALL" selected>All Biological Pathways</option>
           <option value="M1_ION_CHANNELS">1. Voltage-Gated Na+, K+ &amp; Ca2+ Ion Channels (12 genes)</option>
@@ -413,16 +429,16 @@
               <th data-sort="aa_len">Length (AA) &#8597;</th>
               <th data-sort="n_var">N<sub>var</sub> &#8597;</th>
               <th>pLoF / Mis</th>
-              <th data-sort="vif">VIF &#8597;</th>
-              <th data-sort="p_M1">M1: LoF &#8597;</th>
-              <th data-sort="p_M2">M2: AM &#8597;</th>
-              <th data-sort="p_M3">M3: Con &#8597;</th>
               <th data-sort="p_M5">M5: AM+LoF &#8597;</th>
               <th data-sort="p_M7">M7: AM+LoF+Con &#8597;</th>
               <th data-sort="r2_M7">R&sup2; (M7) &#8597;</th>
-              <th data-sort="p_am">p<sub>AM</sub> (partial R&sup2;) &#8597;</th>
-              <th data-sort="p_lof">p<sub>LoF</sub> (partial R&sup2;) &#8597;</th>
-              <th data-sort="p_con">p<sub>Con</sub> (partial R&sup2;) &#8597;</th>
+              <th data-sort="b_bench" title="Predicted disease log-OR (and OR) of a benchmark high-impact coding variant using Empirical Bayes shrunk slopes">&Delta;log-OR<sub>bench</sub> (OR) &#8597;</th>
+              <th data-sort="eb_am" title="Empirical Bayes shrunk AlphaMissense slope (raw WLS slope in parentheses)">&beta;&#770;<sub>AM</sub><sup>EB</sup> (Raw) &#8597;</th>
+              <th data-sort="p_am">p<sub>AM</sub> (R&sup2;<sub>AM</sub>) &#8597;</th>
+              <th data-sort="eb_lof" title="Empirical Bayes shrunk pLoF slope (raw WLS slope in parentheses)">&beta;&#770;<sub>LoF</sub><sup>EB</sup> (Raw) &#8597;</th>
+              <th data-sort="p_lof">p<sub>LoF</sub> (R&sup2;<sub>LoF</sub>) &#8597;</th>
+              <th data-sort="eb_con" title="Empirical Bayes shrunk Constraint slope (raw WLS slope in parentheses)">&beta;&#770;<sub>Con</sub><sup>EB</sup> (Raw) &#8597;</th>
+              <th data-sort="p_con">p<sub>Con</sub> (R&sup2;<sub>Con</sub>) &#8597;</th>
               <th data-sort="p_bro">Browser min p &#8597;</th>
             </tr>
           </thead>
