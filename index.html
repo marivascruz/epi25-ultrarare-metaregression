@@ -36,6 +36,9 @@
         <a href="#section-pathways" class="btn btn-outline">
           &#129516; Ultra-Rare Pathway Architecture (AF &le; 0.0001)
         </a>
+        <a href="#section-lt2000aa" class="btn btn-outline" style="border-color: #2dd4bf; color: #5eead4;">
+          &#129518; &lt; 2,000 AA &amp; Add-Back Pathway Analysis
+        </a>
         <a href="#section-gene-size" class="btn btn-outline">
           &#128200; Gene Size (AA) vs. &minus;log<sub>10</sub>(p)
         </a>
@@ -57,6 +60,7 @@
           <label for="ctrl-af">Allele Frequency Threshold</label>
           <select id="ctrl-af">
             <option value="af0001" selected>AF &le; 0.0001 (0.01% — Ultra-Rare)</option>
+            <option value="af001">AF &le; 0.001 (0.1% — Rare Coding)</option>
           </select>
         </div>
         <div class="control-group">
@@ -175,21 +179,54 @@
         <div>
           <h2 class="section-title" id="pathway-section-title">4. Deep Biological Pathway Architecture — Ultra-Rare Coding Variants (AF &le; 0.0001)</h2>
           <p class="section-desc">
-            Pathway enrichment is computed at the ultra-rare variant threshold <strong>AF &le; 0.0001</strong> across DisGeNET, GO, Reactome, WikiPathways, HPO, and 8 core neurobiological systems. Click any module card below to filter the scatter plot and gene table.
+            Unbiased pathway enrichment is computed across all <strong>9,953 pre-defined ontology gene sets</strong> (GO Biological Process, GO Molecular Function, GO Cellular Component, Reactome, KEGG, WikiPathways; $5 \le M_{\text{tested}} \le 500$) strictly within the exact tested Epi25 exome universe, with <strong>exact Poisson-Binomial gene-length &amp; variant-count adjustment</strong> (<em>p</em><sub>len-adj</sub>, OR<sub>len-adj</sub>) separately for <strong>All Combined (ALL)</strong>, <strong>DEE (Encephalopathies)</strong>, <strong>GGE (Genetic Generalized)</strong>, <strong>NAFE (Focal)</strong>, and <strong>EPI (All Epilepsies Meta)</strong>.
           </p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: #334155;">Epilepsy Syndrome Cohort:</span>
+          <div class="cohort-btn-group" data-sync="enr-cohort" style="display: inline-flex; gap: 0.35rem; flex-wrap: wrap;">
+            <button type="button" class="btn enr-cohort-btn" data-cohort="ALL" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #0f172a; color: #fff;">ALL (Combined Union)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="DEE" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">DEE (Encephalopathies)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="GGE" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">GGE (Generalized)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="NAFE" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">NAFE (Focal)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="EPI" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">EPI (All Epilepsy Meta)</button>
+          </div>
         </div>
       </div>
       <div class="methods-grid" id="pathway-cards-grid" style="margin-bottom: 1.25rem;"></div>
-      <div class="table-wrapper" style="margin-bottom: 1.25rem; max-height: 340px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
+        <h3 id="all-aa-unbiased-title" style="font-size: 0.94rem; font-weight: 700; color: #0f172a; margin: 0;">
+          Unbiased Exact-Universe &amp; Length-Adjusted Ontology Enrichment (All Protein Lengths — Cohort: ALL)
+        </h3>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <select id="select-allaa-lib" style="padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 600;">
+            <option value="ALL" selected>All 6 Ontology Databases</option>
+            <option value="GO_Biological_Process_2023">GO Biological Process (2023)</option>
+            <option value="GO_Molecular_Function_2023">GO Molecular Function (2023)</option>
+            <option value="GO_Cellular_Component_2023">GO Cellular Component (2023)</option>
+            <option value="Reactome_2022">Reactome Pathways (2022)</option>
+            <option value="KEGG_2021_Human">KEGG Human Pathways (2021)</option>
+            <option value="WikiPathway_2023_Human">WikiPathways Human (2023)</option>
+          </select>
+          <select id="select-allaa-sort" style="padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid #0d9488; background: #f0fdfa; font-size: 0.78rem; font-weight: 700;">
+            <option value="p_len_adj" selected>Sort: Length-Adjusted Poisson-Binomial p (Unbiased Default)</option>
+            <option value="p_fisher">Sort: Exact Tested-Universe Fisher p</option>
+            <option value="p_comp">Sort: Threshold-Free Competitive Z-Score p</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrapper" style="margin-bottom: 1.25rem; max-height: 380px;">
         <table class="results-table">
           <thead>
             <tr>
-              <th>Database Library</th>
-              <th>Enriched Pathway / Clinical Term (AF &le; 0.0001)</th>
-              <th>Odds Ratio</th>
-              <th>Fisher P-value</th>
-              <th>Overlap</th>
-              <th>Overlapping Significant Epilepsy Genes (AF &le; 0.0001)</th>
+              <th>Ontology</th>
+              <th>Pre-Defined Pathway / Ontology Term</th>
+              <th>Hits / Tested (Exp<sub>unadj</sub> &rarr; Exp<sub>len</sub>)</th>
+              <th>Length-Adjusted OR (p<sub>len-adj</sub>)</th>
+              <th>Exact Fisher OR (p<sub>Fisher</sub>)</th>
+              <th>Comp. Z (p<sub>comp</sub>)</th>
+              <th>Med Hit R&sup2;</th>
+              <th>Active Significant Epilepsy Genes (with Protein Length)</th>
             </tr>
           </thead>
           <tbody id="enrichr-table-body"></tbody>
@@ -329,6 +366,179 @@
       </div>
     </section>
 
+    <!-- ROW 3C: SIZE-RESTRICTED PATHWAY ANALYSIS (< 2,000 AMINO ACIDS) & ADD-BACK COMPARISON -->
+    <section class="section-card" id="section-lt2000aa" style="border-top: 4px solid #0d9488;">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="lt2000-section-title">
+            4C. Unbiased Size-Restricted Pathway Enrichment of Compact Proteins (L<sub>AA</sub> &lt; 2,000 AA) &amp; Add-Back Comparison — AF &le; 0.0001
+          </h2>
+          <p class="section-desc" id="lt2000-section-desc">
+            Strictly unbiased over-representation and competitive enrichment across all <strong>9,953 pre-defined ontology gene sets</strong> (GO, Reactome, KEGG, WikiPathways) restricted to the exact tested universe of proteins with <strong><em>L</em><sub>AA</sub> &lt; 2,000 amino acids</strong> (<strong>17,130 / 17,572 = 97.48%</strong> of tested genes), with <strong>exact Poisson-Binomial adjustment for gene length log<sub>10</sub>(<em>L</em><sub>AA</sub>) and variant count log<sub>10</sub>(<em>M<sub>g</sub></em>)</strong>, plus head-to-head comparison when <strong>adding back <em>L</em><sub>AA</sub> &ge; 2,000 AA</strong> (which unlocks <code>SCN1A</code> [2,009 AA], <code>CACNA1A</code> [2,506 AA], <code>CACNA1B</code> [2,339 AA], and <code>RYR2</code> [4,967 AA]). Switch between <strong>ALL</strong>, <strong>DEE</strong>, <strong>GGE</strong>, <strong>NAFE</strong>, and <strong>EPI</strong> below.
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: #334155;">Epilepsy Syndrome Cohort:</span>
+          <div class="cohort-btn-group" data-sync="enr-cohort" style="display: inline-flex; gap: 0.35rem; flex-wrap: wrap;">
+            <button type="button" class="btn enr-cohort-btn" data-cohort="ALL" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #0f172a; color: #fff;">ALL (Combined Union)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="DEE" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">DEE (Encephalopathies)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="GGE" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">GGE (Generalized)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="NAFE" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">NAFE (Focal)</button>
+            <button type="button" class="btn enr-cohort-btn" data-cohort="EPI" style="padding: 0.36rem 0.7rem; font-size: 0.76rem; background: #e2e8f0; color: #0f172a;">EPI (All Epilepsy Meta)</button>
+          </div>
+          <button id="btn-filter-table-lt2000" class="btn btn-primary" style="background: #0d9488; border-color: #0d9488; font-size: 0.76rem; padding: 0.36rem 0.7rem;">
+            &#128269; Filter Gene Table to &lt; 2,000 AA
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 KPI CARDS FOR < 2,000 AA ANALYSIS -->
+      <div class="kpi-grid" style="margin-bottom: 1.25rem;">
+        <div class="kpi-card" style="border-left: 4px solid #0d9488;">
+          <div class="kpi-label" id="kpi-lt2000-bg-label">Exact Tested Universe (&lt; 2,000 AA)</div>
+          <div class="kpi-value" id="kpi-lt2000-bg">17,130 / 17,572 (97.48%)</div>
+          <div class="kpi-sub" id="kpi-lt2000-bg-sub">Exact tested protein-coding universe (zero external genome-background bias)</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid #2563eb;">
+          <div class="kpi-label" id="kpi-lt2000-sig-label">Significant Genes (&lt; 2,000 AA — ALL)</div>
+          <div class="kpi-value" id="kpi-lt2000-sig">44 / 55 (80.0%)</div>
+          <div class="kpi-sub" id="kpi-lt2000-sig-sub">Median protein length = 735 AA (&lt; 2,000 AA) vs. 3,144 AA (&ge; 2,000 AA)</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid #e11d48;">
+          <div class="kpi-label">Explained Variance R&sup2; (&lt; 2,000 AA vs &ge; 2,000 AA)</div>
+          <div class="kpi-value" id="kpi-lt2000-r2">26.55% vs. 4.61% (5.76&times;)</div>
+          <div class="kpi-sub" id="kpi-lt2000-r2-sub">Compact &lt; 2,000 AA significant genes explain 5.8&times; more variance per gene</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid #7c3aed;">
+          <div class="kpi-label" id="kpi-lt2000-mods-label">Top Unbiased Length-Adjusted Pathway</div>
+          <div class="kpi-value" id="kpi-lt2000-mods" style="font-size: 1.05rem;">Inorganic Anion Transport (20.6&times;)</div>
+          <div class="kpi-sub" id="kpi-lt2000-mods-sub">Exact Poisson-Binomial length-adjusted p = 6.24e-5 (SLC6A1, GABRB3, GABRA1, SLC25A11)</div>
+        </div>
+      </div>
+
+      <!-- 2 INTERACTIVE PLOTLY CHARTS FOR < 2,000 AA UNBIASED PATHWAY ARCHITECTURE -->
+      <div class="chart-row-2col" style="margin-bottom: 1.35rem;">
+        <div id="plot-lt2000-modules-or" class="plot-box" style="height: 430px;"></div>
+        <div id="plot-lt2000-r2-comparison" class="plot-box" style="height: 430px;"></div>
+      </div>
+
+      <!-- UNBIASED ONTOLOGY ENRICHMENT TABLE (< 2,000 AA / ALL AA / >= 2,000 AA) -->
+      <div style="margin-bottom: 1.35rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.55rem;">
+          <h3 id="lt2000-enrichr-title" style="font-size: 0.96rem; font-weight: 700; color: #0f172a; margin: 0;">
+            Unbiased Exact-Universe &amp; Length-Adjusted Ontology Enrichment (L<sub>AA</sub> &lt; 2,000 AA — Cohort: ALL)
+          </h3>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <select id="select-lt2000-regime" style="padding: 0.36rem 0.65rem; border-radius: 6px; border: 2px solid #2563eb; background: #eff6ff; color: #1e3a8a; font-size: 0.78rem; font-weight: 700;">
+              <option value="lt2000_aa" selected>Universe: L_AA &lt; 2,000 AA Only (17,130 Compact/Standard Genes)</option>
+              <option value="all_aa">Universe: Add Back L_AA &ge; 2,000 AA (All 17,572 Tested Genes)</option>
+              <option value="ge2000_aa">Universe: L_AA &ge; 2,000 AA Stratum Only (442 Large Channel/Scaffold Genes)</option>
+            </select>
+            <select id="select-lt2000-lib" style="padding: 0.36rem 0.65rem; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 600;">
+              <option value="ALL" selected>All 6 Ontology Databases (9,953 Pathways)</option>
+              <option value="GO_Biological_Process_2023">GO Biological Process (2023)</option>
+              <option value="GO_Molecular_Function_2023">GO Molecular Function (2023)</option>
+              <option value="GO_Cellular_Component_2023">GO Cellular Component (2023)</option>
+              <option value="Reactome_2022">Reactome Pathways (2022)</option>
+              <option value="KEGG_2021_Human">KEGG Human Pathways (2021)</option>
+              <option value="WikiPathway_2023_Human">WikiPathways Human (2023)</option>
+            </select>
+            <select id="select-lt2000-sort" style="padding: 0.36rem 0.65rem; border-radius: 6px; border: 1px solid #0d9488; background: #f0fdfa; font-size: 0.78rem; font-weight: 700;">
+              <option value="p_len_adj" selected>Sort: Length-Adjusted Poisson-Binomial p (Unbiased Default)</option>
+              <option value="p_fisher">Sort: Exact Tested-Universe Fisher p</option>
+              <option value="p_comp">Sort: Threshold-Free Competitive Z-Score p</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper" style="max-height: 420px;">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Ontology</th>
+                <th>Pre-Defined Pathway / Ontology Term</th>
+                <th>Hits / Tested (Exp<sub>unadj</sub> &rarr; Exp<sub>len</sub>)</th>
+                <th>Length-Adjusted OR (p<sub>len-adj</sub>)</th>
+                <th>Exact Fisher OR (p<sub>Fisher</sub>)</th>
+                <th>Comp. Z (p<sub>comp</sub>)</th>
+                <th>Med Hit R&sup2;</th>
+                <th>Active Significant Epilepsy Genes (with Canonical AA Length)</th>
+              </tr>
+            </thead>
+            <tbody id="lt2000-enrichr-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- HEAD-TO-HEAD ADD-BACK COMPARISON TABLE: WHAT HAPPENS WHEN WE ADD BACK L_AA >= 2,000 AA? -->
+      <div style="margin-bottom: 1.45rem; background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #2563eb; border-radius: 8px; padding: 0.95rem 1.1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.55rem;">
+          <div>
+            <h3 id="addback-table-title" style="font-size: 0.96rem; font-weight: 700; color: #0f172a; margin: 0 0 0.2rem 0;">
+              Head-to-Head Comparison: What Happens When We Add Back Genes with L<sub>AA</sub> &ge; 2,000 AA? (&lt; 2,000 AA vs. All Protein Lengths)
+            </h3>
+            <p style="font-size: 0.79rem; color: #334155; margin: 0;">
+              In Epilepsy, pore-forming voltage-gated Na<sup>+</sup> and Ca<sup>2+</sup> channel &alpha;<sub>1</sub>-subunits lie just above 2,000 AA (<code>SCN1A</code> [2,009 AA], <code>SCN5A</code> [2,015 AA], <code>CACNA1B</code> [2,339 AA], <code>CACNA1A</code> [2,506 AA], <code>RYR2</code> [4,967 AA]), so adding back <em>L</em><sub>AA</sub> &ge; 2,000 AA strongly amplifies <strong>Regime I (Calcium &amp; Sodium Channel, GABAergic Synapse &amp; Dravet Pathways)</strong> even after strict Poisson-Binomial length control, while <strong>Regime III (GATOR1&ndash;mTORC1 in NAFE, Compact GABA<sub>A</sub> &amp; Chromatin Modules)</strong> is 100% invariant.
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <select id="select-addback-filter" style="padding: 0.38rem 0.65rem; border-radius: 6px; border: 1px solid #2563eb; background: #ffffff; font-size: 0.78rem; font-weight: 700; color: #0f172a;">
+              <option value="GAINED_ANY" selected>Filter: Pathways Gaining &ge;1 Hit from L_AA &ge; 2,000 AA (Sorted by Length-Adj p)</option>
+              <option value="UNLOCKED_OR_AMPLIFIED">Regime I: Newly Unlocked / Amplified by L_AA &ge; 2,000 AA (Survives Length Control)</option>
+              <option value="GIANT_SCAFFOLD_ATTENUATED">Regime II: Giant Scaffold Pathways (Strong Fisher OR, Attenuated by Length Control)</option>
+              <option value="COMPACT_INVARIANT">Regime III: Compact-Core Invariant (0 Hits &ge; 2,000 AA; 100% Compact)</option>
+              <option value="ALL_TOP">Show All Top Enriched Pathways Side-by-Side (&lt; 2,000 AA vs. All AA)</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper" style="max-height: 430px;">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Ontology</th>
+                <th>Pathway Term</th>
+                <th>Add-Back Regime</th>
+                <th>Hits: &lt;2k &rarr; All AA (+&ge;2k)</th>
+                <th>Length-Adj OR (p<sub>len</sub>): &lt;2k &rarr; All AA</th>
+                <th>Unadj Fisher OR (p<sub>Fish</sub>): &lt;2k &rarr; All AA</th>
+                <th>Comp. Z: &lt;2k &rarr; All</th>
+                <th>Added &ge; 2,000 AA Genes (Rose) &amp; Retained &lt; 2,000 AA Genes (Blue)</th>
+              </tr>
+            </thead>
+            <tbody id="addback-comparison-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TOP SIGNIFICANT < 2,000 AA GENES IN SELECTED COHORT + 8 FUNCTIONAL SYSTEM CLASSIFICATION CARDS -->
+      <div style="margin-bottom: 1.35rem;">
+        <h3 id="lt2000-topgenes-title" style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">
+          Top Exome-Wide Significant Compact Genes (L<sub>AA</sub> &lt; 2,000 AA) in Selected Epilepsy Cohort — Click Any Row to Inspect
+        </h3>
+        <div class="table-wrapper" style="max-height: 350px;">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Gene</th>
+                <th>Cohort</th>
+                <th>Length</th>
+                <th>Unified p<sub>M7</sub></th>
+                <th>R&sup2; (M7)</th>
+                <th>Partial R&sup2; Decomposition (AlphaMissense / pLoF / Constraint)</th>
+              </tr>
+            </thead>
+            <tbody id="lt2000-top-genes-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 id="lt2000-cards-title" style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.55rem;">
+          Functional System Classification Breakdown: Compact (&lt; 2,000 AA) vs. Large (&ge; 2,000 AA) Loci in Selected Cohort (Click Any Card to Filter Gene Table)
+        </h3>
+        <div class="methods-grid" id="lt2000-pathway-cards-grid" style="grid-template-columns: repeat(2, 1fr);"></div>
+      </div>
+    </section>
+
     <!-- ROW 4: VARIANT-LEVEL WLS PROFILE VIEWER -->
     <section class="section-card">
       <div class="section-header">
@@ -414,6 +624,12 @@
           <option value="exome">Exome-Wide Significant Only (p &lt; 3.4e-7)</option>
           <option value="sug">Suggestive &amp; Significant (p &lt; 2.5e-6)</option>
           <option value="rescued">Novel Rescued Only (Unified p &lt; 3.4e-7 &amp; Browser p &ge; 3.4e-7)</option>
+        </select>
+        <select id="select-aalen-filter" style="border-color: #2563eb; font-weight: 600;">
+          <option value="all" selected>All Protein Lengths (AA)</option>
+          <option value="lt2000">Compact &amp; Standard (&lt; 2,000 AA)</option>
+          <option value="lt1000">Compact Proteins Only (&lt; 1,000 AA)</option>
+          <option value="ge2000">Large Channels &amp; Scaffolds (&ge; 2,000 AA)</option>
         </select>
         <button id="btn-export-csv" class="btn btn-primary" style="background: #0f172a; color: #ffffff;">
           &#11015; Export Filtered Table (.CSV)
@@ -594,7 +810,7 @@
     References: Aguilar, Rivas &amp; Rivas (2025) <code>medRxiv 10.1101/2024.06.27.24309590</code> &bull; Lauer &amp; Rivas (2025) <code>bioRxiv 10.1101/2025.01.23.634522</code>
   </footer>
 
-  <script src="data.js?v=20261028d"></script>
-  <script src="app.js?v=20261028d"></script>
+  <script src="data.js?v=20261028f"></script>
+  <script src="app.js?v=20261028f"></script>
 </body>
 </html>
