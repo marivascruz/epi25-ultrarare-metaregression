@@ -26,13 +26,13 @@
         <strong>Manuel A. Rivas</strong> &bull; Department of Biomedical Data Science, Stanford University, Stanford, CA, USA 94305
       </p>
       <p class="hero-subtitle">
-        A unified statistical genetics framework integrating 100% Firth 2&times;2 penalized-likelihood rescue, orthogonal 3-axis functional severity (AlphaMissense, pLoF, base-pair WES HMM constraint), gene-length-calibrated pathway architecture, and bidirectional risk/protective mixture modeling across DEE, GGE, NAFE, and Combined Epilepsy (EPI).
+        A unified statistical genetics framework integrating 100% Firth 2&times;2 penalized-likelihood rescue, orthogonal 3-axis functional severity (AlphaMissense, pLoF, base-pair WES HMM constraint), gene-length-calibrated pathway architecture, and location-slope (<code>M8</code>) &amp; folded-normal magnitude-dispersion (<code>M9</code>) meta-regression across DEE, GGE, NAFE, and Combined Epilepsy (EPI).
       </p>
       <div class="hero-actions">
-        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261029c" target="_blank" class="btn btn-primary" style="background:#0d9488;border-color:#0d9488;">
+        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261030a" target="_blank" class="btn btn-primary" style="background:#0d9488;border-color:#0d9488;">
           &#128196; Download Ultra-Rare (AF &le; 0.0001) Manuscript (PDF)
         </a>
-        <a href="epi25_unified_metaregression_report.pdf?v=20261029c" target="_blank" class="btn btn-primary">
+        <a href="epi25_unified_metaregression_report.pdf?v=20261030a" target="_blank" class="btn btn-primary">
           &#128196; Download Rare (AF &le; 0.001) Manuscript (PDF)
         </a>
         <a href="#section-pathways" class="btn btn-outline">
@@ -48,7 +48,7 @@
           &#128269; 6. Gene Prioritization Table
         </a>
         <a href="#section-figures" class="btn btn-outline">
-          &#128444; 7. All 14 Figures (300 DPI)
+          &#128444; 7. All 13 Figures (300 DPI)
         </a>
       </div>
     </div>
@@ -88,7 +88,7 @@
           <select id="ctrl-model">
             <option value="M7" selected>M7: AM + LoF + Constraint (3 d.f. Full Unified)</option>
             <option value="M8">M8 (Model 2): 4-d.f. Joint Location + Slope (Risk &amp; Protective Shift)</option>
-            <option value="M9">M9 (Model 3): 2-Comp EM Sign-Mixture &amp; Bidirectional Dispersion</option>
+            <option value="M9">M9 (Model 3): 3-d.f. Folded-Normal Magnitude Dispersion &amp; Bidirectional Omnibus</option>
             <option value="M5">M5: AM + LoF (2 d.f. Pathogenicity + LoF)</option>
             <option value="M2">M2: AlphaMissense Only (1 d.f.)</option>
             <option value="M4">M4: LoF + Constraint (2 d.f.)</option>
@@ -161,8 +161,8 @@
           Demonstrates that compact synaptic/chromatin genes (&lt;2,000 AA, 97.5% of exome) explain <strong>5.8&times; higher variance per gene</strong> (26.55% vs. 4.61%, e.g., <em>STXBP1</em> 63.6%, <em>SLC6A1</em> 60.8%), while adding back &ge;2,000 AA unlocks pore-forming &alpha;<sub>1</sub>-subunits (<em>SCN1A, CACNA1A/B, RYR2</em>).
         </div>
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #e11d48; border-radius: 6px; padding: 0.75rem 0.9rem;">
-          <div style="font-weight: 800; color: #9f1239; margin-bottom: 0.25rem;">IV. Protective Shifts (M8) &amp; Bidirectional EM (M9) (<a href="#section-bidirectional" style="color:#e11d48;">&sect;4D</a> &amp; <a href="#section-gene-table" style="color:#e11d48;">&sect;6</a>)</div>
-          Unifies net coding location shifts (<code>M8</code>: rescuing <em>GABRB3</em>, <em>CACNA1H</em>, <em>SLC25A11</em>, <em>PIEZO1</em>, <em>GRIN2D</em>) and 2-component EM sign-mixtures (<code>M9</code>: rescuing <em>SLC6A1</em> at AF &le; 0.001, <em>GTF2I</em>, <em>TRAPPC5</em>), increasing discovery to <strong>35 unique genes (AF &le; 0.0001)</strong> and <strong>70 unique genes (AF &le; 0.001)</strong>.
+          <div style="font-weight: 800; color: #9f1239; margin-bottom: 0.25rem;">IV. Protective Shifts (M8) &amp; Magnitude Dispersion (M9) (<a href="#section-bidirectional" style="color:#e11d48;">&sect;4D</a> &amp; <a href="#section-gene-table" style="color:#e11d48;">&sect;6</a>)</div>
+          Unifies net coding location shifts (<code>M8</code>: rescuing <em>GABRB3</em>, <em>CACNA1H</em>, <em>SLC25A11</em>, <em>PIEZO1</em>, <em>GRIN2D</em>) and 3-d.f. folded-normal magnitude dispersion WLS (<code>M9</code>: rescuing <em>SLC6A1</em> at AF &le; 0.001, <em>GTF2I</em>, <em>TRAPPC5</em>), increasing discovery to <strong>35 unique genes (AF &le; 0.0001)</strong> and <strong>70 unique genes (AF &le; 0.001)</strong>.
         </div>
       </div>
     </section>
@@ -631,7 +631,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">
-            4D. Incorporating Risk &amp; Protective Effects in Rare-Variant Meta-Regression: Model 2 (M8: 4-d.f. Joint Location + Slope) &amp; Model 3 (M9: 2-Component EM Sign-Mixture &amp; Dispersion)
+            4D. Incorporating Risk &amp; Protective Effects in Rare-Variant Meta-Regression: Model 2 (M8: 4-d.f. Joint Location + Slope) &amp; Model 3 (M9: 3-d.f. Folded-Normal Magnitude Dispersion &amp; Bidirectional Omnibus)
           </h2>
           <p class="section-desc">
             Standard 3-d.f. functional slope meta-regression (<code>M7</code>) tests only whether variant log-odds ratios covary monotonically with functional severity (<em>H</em><sub>0</sub>: &gamma;<sub>AM</sub> = &gamma;<sub>LoF</sub> = &gamma;<sub>Con</sub> = 0) after centering out the gene-level intercept &beta;<sub>0<em>g</em></sub>. In human epilepsy, ion channels and receptors frequently harbor both net gene-wide coding shifts (&Delta;&beta;<sub>0<em>g</em></sub> &ne; 0, <em>Z</em><sub>loc,<em>g</em></sub> &ne; 0) and opposing gain-/loss-of-function vs. protective missense alleles across transmembrane vs. cytoplasmic domains. We extend the collinearity-free framework with <strong>Model 2 (<code>M8</code>)</strong> and <strong>Model 3 (<code>M9</code>)</strong> across DEE, GGE, NAFE, and EPI.
@@ -662,58 +662,80 @@
 
         <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-left: 4px solid #0d9488; border-radius: 8px; padding: 1.0rem 1.15rem;">
           <h3 style="margin: 0 0 0.45rem 0; font-size: 0.96rem; font-weight: 700; color: #115e59;">
-            Model 3 (<code>M9</code>): 2-Component Latent Sign-Mixture (EM) &amp; Bidirectional Dispersion
+            Model 3 (<code>M9</code>): 3-d.f. Folded-Normal Magnitude Dispersion &amp; Bidirectional Omnibus
           </h3>
           <p style="font-size: 0.81rem; color: #1e293b; line-height: 1.55; margin: 0 0 0.5rem 0;">
-            Models each coding variant <em>v</em> as arising from a latent binary mixture of a <strong>Risk trajectory</strong> (<em>z<sub>gv</sub></em> = +1, prior &pi;<sub><em>g</em></sub>, non-negative slopes &gamma;<sub><em>g</em></sub><sup>(+)</sup> &ge; 0) and an opposing <strong>Protective trajectory</strong> (<em>z<sub>gv</sub></em> = &minus;1, prior 1 &minus; &pi;<sub><em>g</em></sub>, slopes &minus;&gamma;<sub><em>g</em></sub><sup>(&minus;)</sup> &le; 0) via 6-step Expectation&ndash;Maximization (EM), paired with the 3-d.f. Folded-Normal Magnitude Dispersion WLS test on |&beta;&#770;<sub><em>gv</em></sub> &minus; &beta;&#772;<sub><em>w,g</em></sub>| (<em>F</em><sub>mag,<em>g</em></sub>, <em>p</em><sub>mag,<em>g</em></sub>) via equal-weight Cauchy combination:
+            Instead of estimating noisy latent 2-component EM mixture proportions (&pi;<sub><em>g</em></sub>), Model 3 (<code>M9</code>) directly regresses centered absolute variant effect magnitudes <em>u<sub>gv</sub></em> = |&beta;&#770;<sub><em>gv</em></sub> &minus; &beta;&#772;<sub><em>w,g</em></sub>| onto the 3 orthogonal functional moderators (AlphaMissense, pLoF, WES HMM constraint) via 3-d.f. Folded-Normal Weighted Least Squares (<em>F</em><sub>mag,<em>g</em></sub>, <em>p</em><sub>mag,<em>g</em></sub>), unified with <em>p</em><sub>M7,<em>g</em></sub> via the equal-weight Cauchy combination test:
           </p>
           <div style="background: #ffffff; border: 1px solid #ccfbf1; border-radius: 6px; padding: 0.55rem 0.8rem; font-family: 'Courier New', monospace; font-size: 0.82rem; font-weight: 700; color: #0f766e; margin-bottom: 0.5rem; text-align: center;">
-            &beta;&#770;<sub>gv</sub> | X<sub>gv</sub> &sim; &pi;<sub>g</sub> N(&beta;<sub>0g</sub> + X&#771;<sub>gv</sub><sup>&#8868;</sup>&gamma;<sub>g</sub><sup>(+)</sup>, s<sub>gv</sub>&sup2;) + (1&minus;&pi;<sub>g</sub>) N(&beta;<sub>0g</sub> &minus; X&#771;<sub>gv</sub><sup>&#8868;</sup>&gamma;<sub>g</sub><sup>(&minus;)</sup>, s<sub>gv</sub>&sup2;)
+            E[ |&beta;&#770;<sub>gv</sub> &minus; &beta;&#772;<sub>w,g</sub>| | X<sub>gv</sub> ] = &alpha;<sub>0g</sub> + &alpha;<sub>AM,g</sub> X<sub>AM</sub> + &alpha;<sub>LoF,g</sub> X<sub>LoF</sub> + &alpha;<sub>Con,g</sub> X<sub>Con</sub> &nbsp;&rArr;&nbsp; p<sub>M9,g</sub> = ACAT(p<sub>M7,g</sub>, p<sub>mag,g</sub>)
           </div>
           <div style="font-size: 0.78rem; color: #334155; line-height: 1.5;">
             <strong>Newly Rescued Bidirectional Loci in Epilepsy (<em>p</em><sub>M9</sub> &lt; 3.0&times;10<sup>&minus;7</sup>, Missed by M7 Alone):</strong><br>
-            &bull; <strong>DEE (AF &le; 0.001: 26 &rarr; 40 total genes across M7 &cup; M8 &cup; M9):</strong> Rescues <em>SLC6A1</em> (GAT-1 GABA transporter at AF &le; 0.001, <em>p</em><sub>M7</sub> = 6.53&times;10<sup>&minus;7</sup> &rarr; <em>p</em><sub>M9</sub> = <strong>3.84&times;10<sup>&minus;8</sup></strong>), <em>GTF2I</em> (<em>p</em><sub>M9</sub> = <strong>1.20&times;10<sup>&minus;7</sup></strong>), <em>TRAPPC5</em> (rescued at both AF &le; 0.0001 and AF &le; 0.001), and <em>TAS2R20</em>.<br>
+            &bull; <strong>DEE (AF &le; 0.001: 26 &rarr; 40 total genes across M7 &cup; M8 &cup; M9):</strong> Rescues <em>SLC6A1</em> (GAT-1 GABA transporter at AF &le; 0.001, <em>p</em><sub>M7</sub> = 6.53&times;10<sup>&minus;7</sup> &rarr; <em>p</em><sub>mag</sub> = 2.79&times;10<sup>&minus;8</sup>, <em>p</em><sub>M9</sub> = <strong>3.84&times;10<sup>&minus;8</sup></strong>), <em>GTF2I</em> (<em>p</em><sub>M9</sub> = <strong>1.20&times;10<sup>&minus;7</sup></strong>), <em>TRAPPC5</em> (rescued at both AF &le; 0.0001 and AF &le; 0.001), and <em>TAS2R20</em>.<br>
             &bull; <strong>Across All Epilepsy Syndromes:</strong> Unifying <code>M7</code>, <code>M8</code>, and <code>M9</code> increases unique exome-wide significant epilepsy genes from <strong>45 to 70 (+25 newly rescued)</strong> at AF &le; 0.001, and from <strong>21 to 35 (+14 newly rescued)</strong> at ultra-rare AF &le; 0.0001.
           </div>
         </div>
       </div>
 
-      <!-- INTERACTIVE 2-COMPONENT EM MIXTURE PROPORTIONS & MIRRORED SLOPES CHARTS -->
-      <div style="margin-bottom: 1.25rem; background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #2563eb; border-radius: 8px; padding: 0.95rem 1.1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.55rem;">
-          <div>
-            <h3 style="font-size: 0.96rem; font-weight: 700; color: #0f172a; margin: 0 0 0.2rem 0;">
-              Interactive EM Two-Component Sign-Mixture Proportions (&pi;&#770;<sub>+,<em>g</em></sub> Risk vs. &pi;&#770;<sub>&minus;,<em>g</em></sub> Protective) &amp; Opposing Slopes for Significant 2-Component Loci
-            </h3>
-            <p style="font-size: 0.79rem; color: #334155; margin: 0;">
-              Visualizes epilepsy genes in the active syndrome where the <strong>2-Component EM Sign-Mixture &amp; Dispersion model (<code>M9</code>)</strong> is statistically significant in the existence of two opposing allelic components (&gamma;&#770;<sub>AM</sub><sup>(+)</sup> &gt; 0 and &gamma;&#770;<sub>AM</sub><sup>(&minus;)</sup> &gt; 0, interior mixture proportion 0.15 &le; &pi;&#770;<sub>+</sub> &le; 0.85, and <em>p</em><sub>mag</sub> &lt; <em>p</em><sub>M7</sub>).
-            </p>
-          </div>
+      <!-- STATISTICAL DIAGNOSTIC: WHY 2-COMPONENT EM MIXTURE PROPORTIONS (PI_G) ARE OMITTED (95% CIs) -->
+      <div style="margin-bottom: 1.25rem; background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #64748b; border-radius: 8px; padding: 0.95rem 1.15rem; font-size: 0.8rem; color: #1e293b; line-height: 1.55;">
+        <div style="font-weight: 800; color: #0f172a; margin-bottom: 0.35rem; font-size: 0.88rem;">
+          &#9888; Statistical Diagnostic: Why 2-Component EM Mixture Proportions (&pi;<sub><em>g</em></sub>) Have Excessive Uncertainty &amp; Low Power in Rare-Variant Summary Meta-Regression (95% Confidence Intervals for &pi;<sub><em>g</em></sub>)
         </div>
-        <div class="chart-row-2col">
-          <div id="plot-m9-mixture-proportions" class="plot-box" style="height: 440px;"></div>
-          <div id="plot-m9-butterfly-slopes" class="plot-box" style="height: 440px;"></div>
+        <p style="margin: 0 0 0.55rem 0;">
+          A natural question is whether one can estimate a gene-level <strong>2-component Expectation&ndash;Maximization (EM) mixture proportion &pi;<sub><em>g</em></sub> &isin; (0, 1)</strong> (the prior fraction of risk vs. protective alleles) alongside separate component slope vectors (&gamma;<sub><em>g</em></sub><sup>(+)</sup>, &gamma;<sub><em>g</em></sub><sup>(&minus;)</sup>). Rigorous quantification via <strong>Louis (1982) Observed Fisher Information</strong>, <strong>Profile Likelihood</strong>, and <strong>Nonparametric/Parametric Bootstrap (<em>B</em> = 400)</strong> demonstrates that <strong>&pi;&#770;<sub><em>g</em></sub> has massive uncertainty (95% CIs spanning 40&ndash;90 percentage points of [0.05, 0.95]) and lacks statistical power</strong>:
+        </p>
+        <ul style="margin: 0 0 0.65rem 1.2rem; padding: 0;">
+          <li><strong>Large Per-Variant Sampling Noise &amp; Ambiguous Posterior Responsibilities (&tau;<sub><em>gv</em></sub> &isin; [0.25, 0.75]):</strong> Because ultra-rare and rare variants in Epi25 have median log-OR standard error <code>median(SE<sub>gv</sub>) = 1.633</code>, <strong>81% to 99.9% of coding variants</strong> in flagship epilepsy genes (<em>SLC6A1</em>, <em>CACNA1A</em>, <em>GABRB3</em>, <em>KCNQ2</em>, <em>STXBP1</em>, <em>DEPDC5</em>, <em>NPRL3</em>, <em>RYR2</em>, <em>TRIO</em>) have posterior responsibilities &tau;<sub><em>gv</em></sub> &isin; [0.25, 0.75].</li>
+          <li><strong>Missing-Data Fisher Information Collapse (Louis 1982):</strong> By Louis's identity, <em>I</em><sub>obs</sub>(&pi;<sub><em>g</em></sub>) = <em>I</em><sub>comp</sub>(&pi;<sub><em>g</em></sub>) &minus; <em>I</em><sub>miss</sub>(&pi;<sub><em>g</em></sub>) = ESS &middot; &Sigma; w&#771;<sub><em>v</em></sub> (&tau;<sub><em>gv</em></sub> &minus; &pi;&#770;<sub><em>g</em></sub>)<sup>2</sup> / [&pi;&#770;<sub><em>g</em></sub><sup>2</sup>(1 &minus; &pi;&#770;<sub><em>g</em></sub>)<sup>2</sup>], when &tau;<sub><em>gv</em></sub> &approx; &pi;&#770;<sub><em>g</em></sub> across &gt;85% of variants, the missing-data information cancels nearly all complete-data information, yielding <code>SE<sub>Louis</sub>(&pi;&#770;<sub>g</sub>) = 0.11&ndash;0.46</code> and 2-component EM LRT <em>p</em> = 1.000 on nearly all genes.</li>
+          <li><strong>Parameter-Free Folded-Normal Magnitude Dispersion (<code>M9</code>) Achieves High Power Without &pi;<sub><em>g</em></sub>:</strong> Regressing |&beta;&#770;<sub><em>gv</em></sub> &minus; &beta;&#772;<sub><em>w,g</em></sub>| directly on the 3 orthogonal moderators avoids estimating &pi;<sub><em>g</em></sub> and achieves <em>p</em><sub>mag</sub> = 2.79&times;10<sup>&minus;8</sup> on <em>SLC6A1</em> (<code>DEE</code>), 4.28&times;10<sup>&minus;10</sup> on <em>RYR2</em> (<code>EPI</code>), and 8.49&times;10<sup>&minus;11</sup> on <em>TRIO</em> (<code>EPI</code>).</li>
+        </ul>
+        <div class="table-wrapper" style="max-height: 290px;">
+          <table class="results-table" style="font-size: 0.75rem;">
+            <thead>
+              <tr>
+                <th>Cohort</th>
+                <th>Gene</th>
+                <th>M<sub>g</sub> (ESS)</th>
+                <th>Med SE<sub>gv</sub></th>
+                <th>Ambig. &tau;<sub>gv</sub> &isin; [0.25, 0.75]</th>
+                <th>Louis Info SE(&pi;&#770;<sub>g</sub>)</th>
+                <th>Louis 95% CI for &pi;<sub>g</sub></th>
+                <th>Profile-LL 95% CI for &pi;<sub>g</sub></th>
+                <th>Param. Boot 95% CI</th>
+                <th>Variant Boot 95% CI</th>
+                <th>2-Comp EM LRT p</th>
+                <th>3-d.f. Mag WLS p<sub>mag</sub></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>DEE</code></td><td><strong>SLC6A1</strong></td><td>137 (79.6)</td><td>1.633</td><td><strong>88.3%</strong></td><td>0.241</td><td><code>[0.24, 0.95]</code></td><td><code>[0.43, 0.95]</code></td><td><code>[0.54, 0.74]</code></td><td><code>[0.50, 0.79]</code></td><td>0.0224</td><td><strong>2.79&times;10<sup>&minus;8</sup></strong></td></tr>
+              <tr><td><code>GGE</code></td><td><strong>SLC6A1</strong></td><td>166 (41.0)</td><td>1.633</td><td><strong>81.3%</strong></td><td>0.246</td><td><code>[0.25, 0.95]</code></td><td><code>[0.75, 0.95]</code></td><td><code>[0.43, 0.79]</code></td><td><code>[0.45, 0.83]</code></td><td>0.0898</td><td><strong>4.02&times;10<sup>&minus;6</sup></strong></td></tr>
+              <tr><td><code>GGE</code></td><td><strong>CACNA1A</strong></td><td>604 (189.3)</td><td>1.633</td><td><strong>95.7%</strong></td><td>0.196</td><td><code>[0.27, 0.95]</code></td><td><code>[0.43, 0.95]</code></td><td><code>[0.53, 0.66]</code></td><td><code>[0.50, 0.65]</code></td><td>0.0175</td><td><strong>2.44&times;10<sup>&minus;5</sup></strong></td></tr>
+              <tr><td><code>DEE</code></td><td><strong>CACNA1A</strong></td><td>579 (302.9)</td><td>1.633</td><td><strong>94.8%</strong></td><td>0.111</td><td><code>[0.38, 0.81]</code></td><td><code>[0.33, 0.95]</code></td><td><code>[0.51, 0.62]</code></td><td><code>[0.47, 0.65]</code></td><td>0.0050</td><td><strong>2.48&times;10<sup>&minus;5</sup></strong></td></tr>
+              <tr><td><code>DEE</code></td><td><strong>GABRB3</strong></td><td>92 (51.4)</td><td>1.633</td><td><strong>95.7%</strong></td><td>0.458</td><td><code>[0.05, 0.95]</code></td><td><code>[0.25, 0.95]</code></td><td><code>[0.52, 0.72]</code></td><td><code>[0.28, 0.81]</code></td><td>1.000</td><td><strong>3.70&times;10<sup>&minus;5</sup></strong></td></tr>
+              <tr><td><code>DEE</code></td><td><strong>SCN1A</strong></td><td>474 (294.5)</td><td>1.633</td><td>13.9%</td><td>0.129</td><td><code>[0.54, 0.95]</code></td><td><code>[0.61, 0.95]</code></td><td><code>[0.59, 0.71]</code></td><td><code>[0.58, 0.78]</code></td><td>1.000</td><td><strong>3.35&times;10<sup>&minus;5</sup></strong></td></tr>
+              <tr><td><code>DEE</code></td><td><strong>KCNQ2</strong></td><td>327 (113.7)</td><td>1.633</td><td><strong>96.0%</strong></td><td>0.188</td><td><code>[0.12, 0.86]</code></td><td><code>[0.53, 0.95]</code></td><td><code>[0.43, 0.54]</code></td><td><code>[0.34, 0.68]</code></td><td>1.000</td><td>9.20&times;10<sup>&minus;4</sup></td></tr>
+              <tr><td><code>DEE</code></td><td><strong>STXBP1</strong></td><td>130 (104.8)</td><td>1.633</td><td><strong>86.9%</strong></td><td>0.193</td><td><code>[0.32, 0.95]</code></td><td><code>[0.44, 0.95]</code></td><td><code>[0.48, 0.68]</code></td><td><code>[0.51, 0.76]</code></td><td>1.000</td><td>1.10&times;10<sup>&minus;2</sup></td></tr>
+              <tr><td><code>NAFE</code></td><td><strong>DEPDC5</strong></td><td>553 (138.4)</td><td>1.633</td><td><strong>93.3%</strong></td><td>0.218</td><td><code>[0.28, 0.95]</code></td><td><code>[0.05, 0.95]</code></td><td><code>[0.60, 0.75]</code></td><td><code>[0.50, 0.74]</code></td><td>1.000</td><td>0.302</td></tr>
+              <tr><td><code>NAFE</code></td><td><strong>NPRL3</strong></td><td>272 (99.5)</td><td>1.633</td><td><strong>98.9%</strong></td><td>0.329</td><td><code>[0.05, 0.95]</code></td><td><code>[0.20, 0.95]</code></td><td><code>[0.43, 0.58]</code></td><td><code>[0.42, 0.60]</code></td><td>1.000</td><td>0.247</td></tr>
+              <tr><td><code>EPI</code></td><td><strong>RYR2</strong></td><td>1,570 (255.7)</td><td>1.633</td><td><strong>99.9%</strong></td><td>0.313</td><td><code>[0.05, 0.95]</code></td><td><code>[0.05, 0.95]</code></td><td><code>[0.52, 0.64]</code></td><td><code>[0.47, 0.54]</code></td><td>1.000</td><td><strong>4.28&times;10<sup>&minus;10</sup></strong></td></tr>
+              <tr><td><code>EPI</code></td><td><strong>TRIO</strong></td><td>1,130 (189.7)</td><td>1.633</td><td><strong>98.4%</strong></td><td>0.407</td><td><code>[0.05, 0.95]</code></td><td><code>[0.29, 0.95]</code></td><td><code>[0.58, 0.77]</code></td><td><code>[0.51, 0.67]</code></td><td>1.000</td><td><strong>8.49&times;10<sup>&minus;11</sup></strong></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- EMBEDDED HIGH-IMPACT FIGURE 13 & FIGURE 14 -->
-      <div class="chart-row-2col" style="margin-bottom: 1.25rem;">
+      <!-- EMBEDDED HIGH-IMPACT FIGURE 13 -->
+      <div style="margin-bottom: 1.25rem;">
         <div class="fig-card">
-          <a href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029b" target="_blank">
-            <img src="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029b" alt="Figure 13: Incorporating Risk and Protective Effects via Model 2 (M8) and Model 3 (M9) in Epilepsy Exomes" />
+          <a href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261030a" target="_blank">
+            <img src="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261030a" alt="Figure 13: Incorporating Risk and Protective Effects via Model 2 (M8) and Model 3 (M9) in Epilepsy Exomes" />
           </a>
           <div class="fig-caption">
-            <span><strong>Figure 13. Incorporating Risk &amp; Protective Effects: Model 2 (M8: Joint 4-d.f. Location + Slope) and Model 3 (M9: 2-Component Latent Sign-Mixture EM &amp; Dispersion) Across Epi25 Syndromes (DEE, GGE, NAFE, EPI).</strong></span>
-            <a class="fig-open-link" href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029b" target="_blank">&#128269; Open 300-DPI PNG</a>
-          </div>
-        </div>
-        <div class="fig-card">
-          <a href="assets/fig14_em_2component_mixture_proportions.png?v=20261029b" target="_blank">
-            <img src="assets/fig14_em_2component_mixture_proportions.png?v=20261029b" alt="Figure 14: Visualizing Two-Component EM Mixture Proportions (pi+ Risk vs pi- Protective) and Opposing Moderator Slopes in Epilepsy" />
-          </a>
-          <div class="fig-caption">
-            <span><strong>Figure 14. Visualizing EM Mixture Proportions (&pi;&#770;<sub>+</sub> Risk vs. &pi;&#770;<sub>&minus;</sub> Protective), Opposing Moderator Slopes, Phase Space, and Bimodal Variant Responsibilities for Significant 2-Component Epilepsy Loci.</strong></span>
-            <a class="fig-open-link" href="assets/fig14_em_2component_mixture_proportions.png?v=20261029b" target="_blank">&#128269; Open 300-DPI PNG</a>
+            <span><strong>Figure 13. Incorporating Risk &amp; Protective Effects: Model 2 (M8: Joint 4-d.f. Location + Slope) and Model 3 (M9: 3-d.f. Folded-Normal Magnitude Dispersion &amp; Bidirectional Omnibus) Across Epi25 Syndromes (DEE, GGE, NAFE, EPI).</strong></span>
+            <a class="fig-open-link" href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261030a" target="_blank">&#128269; Open 300-DPI PNG</a>
           </div>
         </div>
       </div>
@@ -777,7 +799,7 @@
         <select id="select-ranking-preset" style="border-color: #0d9488; font-weight: 700; color: #0f172a; background: #f0fdfa;">
           <option value="p_M7:asc" selected>Rank by: Unified M7 Omnibus p-value (Default)</option>
           <option value="p_M8:asc">Rank by: Model 2 (M8: 4-d.f. Joint Location + Slope p-value)</option>
-          <option value="p_M9:asc">Rank by: Model 3 (M9: 2-Comp EM Sign-Mixture p-value)</option>
+          <option value="p_M9:asc">Rank by: Model 3 (M9: 3-d.f. Magnitude Dispersion Omnibus p-value)</option>
           <option value="r2_M7:desc">Rank by: Total Explained Variance R&sup2; (M7, Length-Invariant)</option>
           <option value="b_bench:desc">Rank by: Benchmark Variant Effect &Delta;log-OR (EB Composite)</option>
           <option value="eb_am:desc">Rank by: AlphaMissense Slope &beta;_AM (EB Shrunk)</option>
@@ -830,7 +852,7 @@
               <th data-sort="p_M5">M5: AM+LoF &#8597;</th>
               <th data-sort="p_M7">M7: AM+LoF+Con &#8597;</th>
               <th data-sort="p_M8" title="Model 2 (M8): 4-d.f. Joint Location + Slope Omnibus p-value and net coding location shift Z_loc">M8: Loc+Slope (Z<sub>loc</sub>) &#8597;</th>
-              <th data-sort="p_M9" title="Model 3 (M9): 2-Component EM Sign-Mixture & Folded-Normal Dispersion p-value and risk branch weight pi_+">M9: EM Mixture (&pi;<sub>+</sub>) &#8597;</th>
+              <th data-sort="p_M9" title="Model 3 (M9): 3-d.f. Folded-Normal Magnitude Dispersion & Bidirectional Omnibus p-value and magnitude WLS p_mag">M9: Mag Dispersion (p<sub>mag</sub>) &#8597;</th>
               <th data-sort="r2_M7">R&sup2; (M7) &#8597;</th>
               <th data-sort="b_bench" title="Predicted disease log-OR (and OR) of a benchmark high-impact coding variant using Empirical Bayes shrunk slopes">&Delta;log-OR<sub>bench</sub> (OR) &#8597;</th>
               <th data-sort="eb_am" title="Empirical Bayes shrunk AlphaMissense slope (raw WLS slope in parentheses)">&beta;&#770;<sub>AM</sub><sup>EB</sup> (Raw) &#8597;</th>
@@ -852,7 +874,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">7. Publication-Quality Figures (300 DPI — Click Any Figure to Open Full-Resolution PNG)</h2>
-          <p class="section-desc">All 14 publication-grade figures (300 DPI) from the collinearity-free Epi25 meta-regression, biological pathway architecture, and bidirectional EM mixture analysis are embedded in the PDF manuscripts and displayed below.</p>
+          <p class="section-desc">All 13 publication-grade figures (300 DPI) from the collinearity-free Epi25 meta-regression, biological pathway architecture, and location-slope (<code>M8</code>) &amp; magnitude-dispersion (<code>M9</code>) analysis are embedded in the PDF manuscripts and displayed below.</p>
         </div>
       </div>
 
@@ -957,21 +979,12 @@
           </div>
         </div>
         <div class="fig-card">
-          <a href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029c" target="_blank">
-            <img src="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029c" alt="Figure 13: Incorporating Risk and Protective Effects via Model 2 (M8) and Model 3 (M9) in Epilepsy" />
+          <a href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261030a" target="_blank">
+            <img src="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261030a" alt="Figure 13: Incorporating Risk and Protective Effects via Model 2 (M8) and Model 3 (M9) in Epilepsy" />
           </a>
           <div class="fig-caption">
-            <span><strong>Figure 13. Incorporating Risk &amp; Protective Effects in Rare-Variant Meta-Regression: Model 2 (M8: Joint 4-d.f. Location + Slope) and Model 3 (M9: 2-Component Latent Sign-Mixture EM &amp; Folded-Normal Dispersion) in Epilepsy (Epi25).</strong></span>
-            <a class="fig-open-link" href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029c" target="_blank">&#128269; Open 300-DPI PNG</a>
-          </div>
-        </div>
-        <div class="fig-card">
-          <a href="assets/fig14_em_2component_mixture_proportions.png?v=20261029c" target="_blank">
-            <img src="assets/fig14_em_2component_mixture_proportions.png?v=20261029c" alt="Figure 14: Visualizing Two-Component EM Mixture Proportions (pi+ Risk vs pi- Protective) and Opposing Moderator Slopes in Epilepsy" />
-          </a>
-          <div class="fig-caption">
-            <span><strong>Figure 14. Visualizing EM Mixture Proportions (&pi;&#770;<sub>+</sub> Risk vs. &pi;&#770;<sub>&minus;</sub> Protective), Opposing Moderator Slopes, Phase Space, and Bimodal Variant Responsibilities for Significant 2-Component Epilepsy Loci.</strong></span>
-            <a class="fig-open-link" href="assets/fig14_em_2component_mixture_proportions.png?v=20261029c" target="_blank">&#128269; Open 300-DPI PNG</a>
+            <span><strong>Figure 13. Incorporating Risk &amp; Protective Effects in Rare-Variant Meta-Regression: Model 2 (M8: Joint 4-d.f. Location + Slope) and Model 3 (M9: 3-d.f. Folded-Normal Magnitude Dispersion &amp; Bidirectional Omnibus) in Epilepsy (Epi25).</strong></span>
+            <a class="fig-open-link" href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261030a" target="_blank">&#128269; Open 300-DPI PNG</a>
           </div>
         </div>
       </div>
