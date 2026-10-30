@@ -14,42 +14,41 @@
     <div class="container">
       <div class="badge-row">
         <span class="badge highlight">Collinearity-Free WLS (Median VIF = 1.019)</span>
-        <span class="badge">missense_ind &amp; GERP Removed</span>
         <span class="badge">15,772,548 Coding Variants Merged</span>
-        <span class="badge">Ultra-Rare AF &le; 0.0001</span>
-        <span class="badge">Firth 2&times;2 Rescue (100.00%)</span>
-        <span class="badge">35 Strict / 67 Exome-Wide Ultra-Rare Epilepsy Genes</span>
+        <span class="badge">AF &le; 0.0001 &amp; AF &le; 0.001</span>
+        <span class="badge">Firth 2&times;2 Penalized Likelihood (100% Rescue)</span>
+        <span class="badge">21&rarr;35 (AF &le; 0.0001) &amp; 45&rarr;70 (AF &le; 0.001) Unique Epilepsy Genes</span>
       </div>
       <h1 class="hero-title">
-        Unified Ultra-Rare Variant Meta-Regression (AF &lt; 0.0001) &amp; Pathway Architecture of Epilepsy (Epi25)
+        Unified Rare-Variant Meta-Regression &amp; Pathway Architecture of Epilepsy (Epi25)
       </h1>
       <p style="font-size: 0.98rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.55rem;">
         <strong>Manuel A. Rivas</strong> &bull; Department of Biomedical Data Science, Stanford University, Stanford, CA, USA 94305
       </p>
       <p class="hero-subtitle">
-        Explore all ultra-rare (AF &le; 0.0001) exome-wide significant epilepsy risk genes across DEE, GGE, NAFE, and Combined Epilepsy (EPI) and their 8 neurobiological systems.
+        A unified statistical genetics framework integrating 100% Firth 2&times;2 penalized-likelihood rescue, orthogonal 3-axis functional severity (AlphaMissense, pLoF, base-pair WES HMM constraint), gene-length-calibrated pathway architecture, and bidirectional risk/protective mixture modeling across DEE, GGE, NAFE, and Combined Epilepsy (EPI).
       </p>
       <div class="hero-actions">
-        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261028d" target="_blank" class="btn btn-primary">
-          &#128196; Download Ultra-Rare (AF &lt; 0.0001) Manuscript (PDF)
+        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261029c" target="_blank" class="btn btn-primary" style="background:#0d9488;border-color:#0d9488;">
+          &#128196; Download Ultra-Rare (AF &le; 0.0001) Manuscript (PDF)
+        </a>
+        <a href="epi25_unified_metaregression_report.pdf?v=20261029c" target="_blank" class="btn btn-primary">
+          &#128196; Download Rare (AF &le; 0.001) Manuscript (PDF)
         </a>
         <a href="#section-pathways" class="btn btn-outline">
-          &#129516; Ultra-Rare Pathway Architecture (AF &le; 0.0001)
+          &#129516; 4A. Pathway Architecture
         </a>
         <a href="#section-lt2000aa" class="btn btn-outline" style="border-color: #2dd4bf; color: #5eead4;">
-          &#129518; &lt; 2,000 AA &amp; Add-Back Pathway Analysis
+          &#129518; 4B&ndash;4C. Gene Length &amp; &lt;2,000 AA
         </a>
         <a href="#section-bidirectional" class="btn btn-outline" style="border-color: #f43f5e; color: #fecdd3;">
-          &#9878; Risk &amp; Protective Models (M8 &amp; M9)
-        </a>
-        <a href="#section-gene-size" class="btn btn-outline">
-          &#128200; Gene Size (AA) vs. &minus;log<sub>10</sub>(p)
-        </a>
-        <a href="#section-figures" class="btn btn-outline">
-          &#128444; Publication Figures (AF &le; 0.0001)
+          &#9878; 4D. Risk &amp; Protective (M8 &amp; M9)
         </a>
         <a href="#section-gene-table" class="btn btn-outline">
-          &#128269; Gene-Level Results Table
+          &#128269; 6. Gene Prioritization Table
+        </a>
+        <a href="#section-figures" class="btn btn-outline">
+          &#128444; 7. All 14 Figures (300 DPI)
         </a>
       </div>
     </div>
@@ -138,6 +137,36 @@
       </div>
     </section>
 
+    <!-- COHERENT 4-PILLAR NARRATIVE STORYBOARD -->
+    <section class="section-card" style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1px solid #cbd5e1; border-left: 5px solid #2563eb; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+        <h2 style="font-size: 1.02rem; font-weight: 800; color: #0f172a; margin: 0;">
+          &#129517; Coherent Study Narrative: From 100% Firth Rescue &amp; Orthogonal Functional Slopes to Bidirectional Epilepsy Architecture
+        </h2>
+        <span style="font-size: 0.76rem; font-weight: 700; color: #1e40af; background: #dbeafe; padding: 0.2rem 0.6rem; border-radius: 999px;">
+          Interactive 4-Stage Analytical Framework
+        </span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem; font-size: 0.8rem; line-height: 1.5; color: #334155;">
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #2563eb; border-radius: 6px; padding: 0.75rem 0.9rem;">
+          <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">I. 100% Firth Rescue &amp; Orthogonal WLS (<a href="#plot-progression" style="color:#2563eb;">&sect;1&ndash;3</a>)</div>
+          Reconstructs finite effect sizes for 100% of coding variants via Firth 2&times;2 penalized likelihood and eliminates collinearity (median VIF = 1.019), expanding discovery across DEE, GGE, NAFE, and EPI to <strong>21&ndash;22 unique genes at AF &le; 0.0001</strong> and <strong>45 unique genes at AF &le; 0.001</strong> in <code>M7</code>.
+        </div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #0d9488; border-radius: 6px; padding: 0.75rem 0.9rem;">
+          <div style="font-weight: 800; color: #115e59; margin-bottom: 0.25rem;">II. Unbiased Length-Adjusted Pathways (<a href="#section-pathways" style="color:#0d9488;">&sect;4A</a>)</div>
+          Exact Poisson-Binomial gene-length &amp; variant-count adjusted enrichment across 21,568 gene sets resolves <strong>8 core neurobiological systems</strong>: AIS voltage-gated Na<sup>+</sup>/K<sup>+</sup>/Ca<sup>2+</sup> channels, GABA<sub>A</sub>/SNARE synapses, GATOR1&ndash;mTORC1 in NAFE, neuronal chromatin, and BBB transport.
+        </div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #7c3aed; border-radius: 6px; padding: 0.75rem 0.9rem;">
+          <div style="font-weight: 800; color: #5b21b6; margin-bottom: 0.25rem;">III. Protein Size Calibration &amp; &lt;2,000 AA Core (<a href="#section-gene-size" style="color:#7c3aed;">&sect;4B&ndash;4C</a>)</div>
+          Demonstrates that compact synaptic/chromatin genes (&lt;2,000 AA, 97.5% of exome) explain <strong>5.8&times; higher variance per gene</strong> (26.55% vs. 4.61%, e.g., <em>STXBP1</em> 63.6%, <em>SLC6A1</em> 60.8%), while adding back &ge;2,000 AA unlocks pore-forming &alpha;<sub>1</sub>-subunits (<em>SCN1A, CACNA1A/B, RYR2</em>).
+        </div>
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #e11d48; border-radius: 6px; padding: 0.75rem 0.9rem;">
+          <div style="font-weight: 800; color: #9f1239; margin-bottom: 0.25rem;">IV. Protective Shifts (M8) &amp; Bidirectional EM (M9) (<a href="#section-bidirectional" style="color:#e11d48;">&sect;4D</a> &amp; <a href="#section-gene-table" style="color:#e11d48;">&sect;6</a>)</div>
+          Unifies net coding location shifts (<code>M8</code>: rescuing <em>GABRB3</em>, <em>CACNA1H</em>, <em>SLC25A11</em>, <em>PIEZO1</em>, <em>GRIN2D</em>) and 2-component EM sign-mixtures (<code>M9</code>: rescuing <em>SLC6A1</em> at AF &le; 0.001, <em>GTF2I</em>, <em>TRAPPC5</em>), increasing discovery to <strong>35 unique genes (AF &le; 0.0001)</strong> and <strong>70 unique genes (AF &le; 0.001)</strong>.
+        </div>
+      </div>
+    </section>
+
     <!-- ROW 1: PROGRESSION CHART & UNIFIED VS BROWSER SCATTER -->
     <div class="chart-row-2col">
       <div class="section-card" style="margin-bottom: 0;">
@@ -182,7 +211,7 @@
     <section class="section-card" id="section-pathways">
       <div class="section-header">
         <div>
-          <h2 class="section-title" id="pathway-section-title">4. Deep Biological Pathway Architecture — Ultra-Rare Coding Variants (AF &le; 0.0001)</h2>
+          <h2 class="section-title" id="pathway-section-title">4A. Unbiased Biological &amp; Clinical Pathway Architecture (All Protein Lengths)</h2>
           <p class="section-desc">
             Unbiased pathway, clinical phenotype, and functional module enrichment is computed across all <strong>21,568 pre-defined gene sets across 9 libraries</strong> (<strong>DisGeNET Disease</strong>, <strong>HPO Clinical Phenotype</strong>, <strong>8 Highlighted Functional Biological Modules</strong>, GO Biological Process, GO Molecular Function, GO Cellular Component, Reactome, KEGG, and WikiPathways) strictly within the exact tested Epi25 exome universe, with <strong>exact Poisson-Binomial gene-length &amp; variant-count adjustment</strong> (<em>p</em><sub>len-adj</sub>, OR<sub>len-adj</sub>) separately for <strong>All Combined (ALL)</strong>, <strong>DEE (Encephalopathies)</strong>, <strong>GGE (Genetic Generalized)</strong>, <strong>NAFE (Focal)</strong>, and <strong>EPI (All Epilepsies Meta)</strong>.
           </p>
@@ -283,8 +312,8 @@
           <tbody id="enrichr-table-body"></tbody>
         </table>
       </div>
-      <div class="fig-grid" style="grid-template-columns: 1fr;">
-        <div class="fig-card">
+      <div class="fig-grid" style="grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));">
+        <div class="fig-card" style="grid-column: 1 / -1;">
           <a id="link-fig7-pathway-1" href="assets/fig7_pathway_enrichment_network_af0001.png?v=20261028d" target="_blank">
             <img id="img-fig7-pathway" src="assets/fig7_pathway_enrichment_network_af0001.png?v=20261028d" alt="Figure 7: Ultra-Rare Pathway Enrichment and Functional Architecture of Epilepsy" />
           </a>
@@ -823,7 +852,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">7. Publication-Quality Figures (300 DPI — Click Any Figure to Open Full-Resolution PNG)</h2>
-          <p class="section-desc">All 12 figures from the collinearity-free Epi25 meta-regression and biological pathway analysis are embedded in the PDF manuscript and displayed below.</p>
+          <p class="section-desc">All 14 publication-grade figures (300 DPI) from the collinearity-free Epi25 meta-regression, biological pathway architecture, and bidirectional EM mixture analysis are embedded in the PDF manuscripts and displayed below.</p>
         </div>
       </div>
 
@@ -928,12 +957,21 @@
           </div>
         </div>
         <div class="fig-card">
-          <a href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029a" target="_blank">
-            <img src="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029a" alt="Figure 13: Incorporating Risk and Protective Effects via Model 2 (M8) and Model 3 (M9) in Epilepsy" />
+          <a href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029c" target="_blank">
+            <img src="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029c" alt="Figure 13: Incorporating Risk and Protective Effects via Model 2 (M8) and Model 3 (M9) in Epilepsy" />
           </a>
           <div class="fig-caption">
             <span><strong>Figure 13. Incorporating Risk &amp; Protective Effects in Rare-Variant Meta-Regression: Model 2 (M8: Joint 4-d.f. Location + Slope) and Model 3 (M9: 2-Component Latent Sign-Mixture EM &amp; Folded-Normal Dispersion) in Epilepsy (Epi25).</strong></span>
-            <a class="fig-open-link" href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029a" target="_blank">&#128269; Open 300-DPI PNG</a>
+            <a class="fig-open-link" href="assets/fig13_bidirectional_m8_m9_architecture.png?v=20261029c" target="_blank">&#128269; Open 300-DPI PNG</a>
+          </div>
+        </div>
+        <div class="fig-card">
+          <a href="assets/fig14_em_2component_mixture_proportions.png?v=20261029c" target="_blank">
+            <img src="assets/fig14_em_2component_mixture_proportions.png?v=20261029c" alt="Figure 14: Visualizing Two-Component EM Mixture Proportions (pi+ Risk vs pi- Protective) and Opposing Moderator Slopes in Epilepsy" />
+          </a>
+          <div class="fig-caption">
+            <span><strong>Figure 14. Visualizing EM Mixture Proportions (&pi;&#770;<sub>+</sub> Risk vs. &pi;&#770;<sub>&minus;</sub> Protective), Opposing Moderator Slopes, Phase Space, and Bimodal Variant Responsibilities for Significant 2-Component Epilepsy Loci.</strong></span>
+            <a class="fig-open-link" href="assets/fig14_em_2component_mixture_proportions.png?v=20261029c" target="_blank">&#128269; Open 300-DPI PNG</a>
           </div>
         </div>
       </div>
