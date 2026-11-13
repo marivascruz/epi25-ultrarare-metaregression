@@ -172,7 +172,7 @@
         text: sub.map(
           (r) =>
             `<b>${r.gene} (${r.group})</b>${r.pathway ? " [" + r.pathway + "]" : ""}<br>` +
-            `${state.model} p = ${fmtP(r[pCol])} (R² = ${fmtPct(r[r2Col])})<br>` +
+            `${state.model} Omnibus p = ${fmtP(r[pCol])} (R² = ${fmtPct(r[r2Col])}, β₀ = ${r.b_int !== null && r.b_int !== undefined ? Number(r.b_int).toFixed(3) : "—"})<br>` +
             `Browser min p = ${fmtP(r.p_bro)} | VIF = ${r.vif ?? "1.02"}<br>` +
             `Variants: ${r.n_var} (pLoF: ${r.n_lof}, Mis: ${r.n_mis}, Firth: ${r.n_firth})`
         ),
@@ -279,12 +279,14 @@
       : "";
 
     const benchOR = rec.b_bench ? Math.exp(Math.min(rec.b_bench, 8)).toFixed(2) : "—";
+    const intStr = rec.b_int !== null && rec.b_int !== undefined ? (rec.b_int >= 0 ? "+" : "") + Number(rec.b_int).toFixed(3) : "—";
     document.getElementById("inspector-gene-summary").innerHTML =
       `<strong>${rec.gene}</strong> (<span class="pill-group pill-${rec.group}">${rec.group}</span>) &nbsp;|&nbsp; ` +
       `Length: <strong>${(rec.aa_len || 0).toLocaleString()} AA</strong> &nbsp;|&nbsp; ` +
       `Variants: <strong>${rec.n_var}</strong> (pLoF: ${rec.n_lof}, Missense: ${rec.n_mis}, Firth: ${rec.n_firth}, Max VIF: ${rec.vif ?? "1.02"}) &nbsp;|&nbsp; ` +
-      `M5 <em>p</em> = <strong>${fmtP(rec.p_M5)}</strong> &nbsp;|&nbsp; ` +
-      `M7 <em>p</em> = <strong>${fmtP(rec.p_M7)}</strong> (<em>R</em>² = <strong>${fmtPct(rec.r2_M7)}</strong>) &nbsp;|&nbsp; ` +
+      `Intercept &beta;&#770;<sub><em>g</em>0</sub> = <strong>${intStr}</strong> &nbsp;|&nbsp; ` +
+      `M5 Omnibus <em>p</em> = <strong>${fmtP(rec.p_M5)}</strong> &nbsp;|&nbsp; ` +
+      `M7 Omnibus <em>p</em> = <strong>${fmtP(rec.p_M7)}</strong> (<em>R</em>² = <strong>${fmtPct(rec.r2_M7)}</strong>) &nbsp;|&nbsp; ` +
       `&Delta;log-OR<sub>bench</sub> = <strong>${rec.b_bench !== null && rec.b_bench !== undefined ? "+" + Number(rec.b_bench).toFixed(2) : "—"}</strong> (OR = <strong>${benchOR}&times;</strong>)` +
       pwayBadge;
 
@@ -1438,6 +1440,7 @@
     const rows = getFilteredRows();
     const headers = [
       "gene_id", "gene", "group", "pathway", "aa_len", "n_var", "n_lof", "n_mis", "n_firth", "max_vif",
+      "beta_intercept_M7", "se_intercept_M7", "p_intercept_M7",
       "p_M1_LoF_only", "p_M2_AM_only", "p_M3_Constraint_only", "p_M4_LoF_Constraint",
       "p_M5_AM_LoF", "p_M7_AM_LoF_Constraint", "p_M8_Joint4df", "z_loc", "p_M9_Magnitude_Omnibus", "r2_M7", "delta_log_or_bench",
       "beta_am_raw", "beta_am_eb", "beta_am_lcb95", "p_pathogenicity", "partial_r2_am",
@@ -1450,6 +1453,7 @@
       lines.push(
         [
           r.gene_id, r.gene, r.group, r.pathway, r.aa_len, r.n_var, r.n_lof, r.n_mis, r.n_firth, r.vif,
+          r.b_int, r.se_int, r.p_int,
           r.p_M1, r.p_M2, r.p_M3, r.p_M4, r.p_M5, r.p_M7, r.p_M8, r.z_loc, r.p_M9, r.r2_M7, r.b_bench,
           r.b_am, r.eb_am, r.lcb_am, r.p_am, r.pr2_am,
           r.b_lof, r.eb_lof, r.lcb_lof, r.p_lof, r.pr2_lof,

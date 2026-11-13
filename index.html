@@ -26,13 +26,13 @@
         <strong>Manuel A. Rivas</strong> &bull; Department of Biomedical Data Science, Stanford University, Stanford, CA, USA 94305
       </p>
       <p class="hero-subtitle">
-        A unified statistical genetics framework integrating 100% Firth 2&times;2 penalized-likelihood rescue, orthogonal 3-axis functional severity (AlphaMissense, pLoF, base-pair WES HMM constraint), gene-length-calibrated pathway architecture, and location-slope (<code>M8</code>) &amp; folded-normal magnitude-dispersion (<code>M9</code>) meta-regression across DEE, GGE, NAFE, and Combined Epilepsy (EPI).
+        A unified statistical genetics framework integrating 100% Firth 2&times;2 penalized-likelihood rescue, unconstrained gene-level WLS intercept (&beta;<sub><em>g</em>0</sub>) + single <em>k</em>-d.f. omnibus <em>F</em>-tests across orthogonal 3-axis functional severity (AlphaMissense, pLoF, base-pair WES HMM constraint), gene-length-calibrated pathway architecture, and calibrated location-slope (<code>M8</code>) &amp; folded-normal magnitude-dispersion (<code>M9</code>) meta-regression across DEE, GGE, NAFE, and Combined Epilepsy (EPI).
       </p>
       <div class="hero-actions">
-        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261030a" target="_blank" class="btn btn-primary" style="background:#0d9488;border-color:#0d9488;">
+        <a href="epi25_af0001_ultrarare_metaregression_report.pdf?v=20261112a" target="_blank" class="btn btn-primary" style="background:#0d9488;border-color:#0d9488;">
           &#128196; Download Ultra-Rare (AF &le; 0.0001) Manuscript (PDF)
         </a>
-        <a href="epi25_unified_metaregression_report.pdf?v=20261030a" target="_blank" class="btn btn-primary">
+        <a href="epi25_unified_metaregression_report.pdf?v=20261112a" target="_blank" class="btn btn-primary">
           &#128196; Download Rare (AF &le; 0.001) Manuscript (PDF)
         </a>
         <a href="#section-pathways" class="btn btn-outline">
@@ -149,8 +149,8 @@
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem; font-size: 0.8rem; line-height: 1.5; color: #334155;">
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #2563eb; border-radius: 6px; padding: 0.75rem 0.9rem;">
-          <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">I. 100% Firth Rescue &amp; Orthogonal WLS (<a href="#plot-progression" style="color:#2563eb;">&sect;1&ndash;3</a>)</div>
-          Reconstructs finite effect sizes for 100% of coding variants via Firth 2&times;2 penalized likelihood and eliminates collinearity (median VIF = 1.019), expanding discovery across DEE, GGE, NAFE, and EPI to <strong>21&ndash;22 unique genes at AF &le; 0.0001</strong> and <strong>45 unique genes at AF &le; 0.001</strong> in <code>M7</code>.
+          <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">I. 100% Firth Rescue, Free Intercept &amp; Single Omnibus WLS (<a href="#plot-progression" style="color:#2563eb;">&sect;1&ndash;3</a>)</div>
+          Reconstructs finite effect sizes for 100% of coding variants via Firth 2&times;2 penalized likelihood, estimates an unconstrained gene-level intercept &beta;<sub><em>g</em>0</sub> (absorbing unequal case/control singleton offsets), and evaluates moderator slopes in a single <em>k</em>-d.f. omnibus <em>F</em>-test (median VIF = 1.019), identifying <strong>22&ndash;31 unique genes at AF &le; 0.0001</strong> and <strong>46 unique genes at AF &le; 0.001</strong> in <code>M7</code>.
         </div>
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 3px solid #0d9488; border-radius: 6px; padding: 0.75rem 0.9rem;">
           <div style="font-weight: 800; color: #115e59; margin-bottom: 0.25rem;">II. Unbiased Length-Adjusted Pathways (<a href="#section-pathways" style="color:#0d9488;">&sect;4A</a>)</div>
@@ -634,7 +634,7 @@
             4D. Incorporating Risk &amp; Protective Effects in Rare-Variant Meta-Regression: Model 2 (M8: 4-d.f. Joint Location + Slope) &amp; Model 3 (M9: 3-d.f. Folded-Normal Magnitude Dispersion &amp; Bidirectional Omnibus)
           </h2>
           <p class="section-desc">
-            Standard 3-d.f. functional slope meta-regression (<code>M7</code>) tests only whether variant log-odds ratios covary monotonically with functional severity (<em>H</em><sub>0</sub>: &gamma;<sub>AM</sub> = &gamma;<sub>LoF</sub> = &gamma;<sub>Con</sub> = 0) after centering out the gene-level intercept &beta;<sub>0<em>g</em></sub>. In human epilepsy, ion channels and receptors frequently harbor both net gene-wide coding shifts (&Delta;&beta;<sub>0<em>g</em></sub> &ne; 0, <em>Z</em><sub>loc,<em>g</em></sub> &ne; 0) and opposing gain-/loss-of-function vs. protective missense alleles across transmembrane vs. cytoplasmic domains. We extend the collinearity-free framework with <strong>Model 2 (<code>M8</code>)</strong> and <strong>Model 3 (<code>M9</code>)</strong> across DEE, GGE, NAFE, and EPI.
+            Primary <em>k</em>-d.f. functional slope meta-regression (<code>M1</code>&ndash;<code>M7</code>) fits an unconstrained gene-level intercept &beta;<sub><em>g</em>0</sub> (essential in Epi25 because asymmetric case/control sample sizes yield non-zero neutral Haldane&ndash;Firth singleton offsets: &beta;&#772;<sub>syn</sub> = +1.365 in <code>DEE</code>, +0.589 in <code>GGE</code>, +0.375 in <code>NAFE</code>, +0.138 in <code>EPI</code>) and tests non-intercept moderator slopes in a single 3-d.f. omnibus <em>F</em>-test (<em>H</em><sub>0</sub>: &gamma;<sub>AM</sub> = &gamma;<sub>LoF</sub> = &gamma;<sub>Con</sub> = 0). Because ion channels and receptors can also harbor uniform gene-wide coding shifts (&Delta;&beta;<sub><em>g</em>0</sub> &ne; 0, <em>Z</em><sub>loc,<em>g</em></sub> &ne; 0) or opposing gain-/loss-of-function vs. protective missense alleles across domains, we pair <code>M7</code> with <strong>Model 2 (<code>M8</code>)</strong> and <strong>Model 3 (<code>M9</code>)</strong> across DEE, GGE, NAFE, and EPI.
           </p>
         </div>
       </div>
@@ -976,7 +976,7 @@
     References: Aguilar, Rivas &amp; Rivas (2025) <code>medRxiv 10.1101/2024.06.27.24309590</code> &bull; Lauer &amp; Rivas (2025) <code>bioRxiv 10.1101/2025.01.23.634522</code>
   </footer>
 
-  <script src="data.js?v=20261029a"></script>
-  <script src="app.js?v=20261029a"></script>
+  <script src="data.js?v=20261112a"></script>
+  <script src="app.js?v=20261112a"></script>
 </body>
 </html>
