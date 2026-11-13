@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Epi25 Ultra-Rare Meta-Regression — New High-Biology Epilepsy Genes Beyond M7</title>
+  <title>Epi25 Ultra-Rare Meta-Regression — Strictly Novel Epilepsy Genes Beyond M7</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -13,7 +13,7 @@
       --blue: #1d4ed8;
       --violet: #6d28d9;
       --emerald: #047857;
-      --crimson: #b91c1c;
+      --plum: #701a75;
       --border: #e2e8f0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,12 +66,7 @@
       display: flex;
       flex-direction: column;
     }
-    .slide {
-      display: none;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-    }
+    .slide { display: none; flex-direction: column; height: 100%; width: 100%; }
     .slide.active { display: flex; }
     .slide-hdr {
       background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
@@ -81,7 +76,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    .slide-hdr h2 { font-size: 1.28rem; font-weight: 700; }
+    .slide-hdr h2 { font-size: 1.26rem; font-weight: 700; }
     .slide-hdr .badge {
       background: rgba(255,255,255,0.14);
       border: 1px solid rgba(255,255,255,0.25);
@@ -99,17 +94,8 @@
       overflow-y: auto;
       gap: 12px;
     }
-    .hero-img {
-      width: 100%;
-      max-height: 64%;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-    .cards-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
+    .hero-img { width: 100%; max-height: 65%; object-fit: contain; border-radius: 8px; }
+    .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .callout {
       border-radius: 10px;
       padding: 11px 14px;
@@ -119,27 +105,20 @@
     }
     .callout.green { background: #ecfdf5; border-color: #a7f3d0; }
     .callout.blue { background: #eff6ff; border-color: #bfdbfe; }
-    .callout.red { background: #fef2f2; border-color: #fecaca; }
+    .callout.plum { background: #fdf4ff; border-color: #f5d0fe; }
     .callout.violet { background: #f5f3ff; border-color: #ddd6fe; }
     .callout.amber { background: #fffbeb; border-color: #fde68a; }
     .callout strong.title { display: block; font-size: 0.88rem; margin-bottom: 3px; }
-    table.scorecard {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-    }
+    table.scorecard { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
     table.scorecard th {
       background: #f1f5f9;
       color: #0f172a;
       text-align: left;
-      padding: 7px 9px;
+      padding: 9px 10px;
       border-bottom: 2px solid #cbd5e1;
       font-weight: 700;
     }
-    table.scorecard td {
-      padding: 6px 9px;
-      border-bottom: 1px solid #e2e8f0;
-    }
+    table.scorecard td { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; }
     table.scorecard tr:nth-child(even) td { background: #f8fafc; }
     .slide-ftr {
       background: #f8fafc;
@@ -158,7 +137,7 @@
 </head>
 <body>
   <div class="topbar">
-    <h1>Epi25 Ultra-Rare Exome Meta-Regression (AF &le; 0.0001) &mdash; New Epilepsy Genes Beyond Slope-Only M7</h1>
+    <h1>Epi25 Ultra-Rare Exome Meta-Regression (AF &le; 0.0001) &mdash; Strictly Novel Epilepsy Genes Missed Across All M7 Cohorts</h1>
     <div class="controls">
       <button class="btn" onclick="prevSlide()">&larr; Prev</button>
       <span id="counter" style="font-size:0.86rem;font-weight:600;padding:0 6px;">Slide 1 / 4</span>
@@ -172,28 +151,28 @@
     <!-- SLIDE 1 -->
     <section class="slide active">
       <div class="slide-hdr">
-        <h2>1. Why Extend Slope-Only Meta-Regression (M7)? Quantitative Proof</h2>
+        <h2>1. Strictly Novel Epilepsy Loci Missed Across All M7 &amp; Browser Cohorts</h2>
         <span class="badge">Exome-Wide Calibration &lambda;<sub>GC</sub>(M8) = 0.992</span>
       </div>
       <div class="slide-body">
-        <img class="hero-img" src="figures/slide_fig3_quant.png" alt="Quantitative Rescue of Non-M7 Epilepsy Genes" style="max-height:66%;" />
+        <img class="hero-img" src="figures/slide_fig3_quant.png?v=20261113b" alt="Quantitative Rescue of Strictly Novel Non-M7 Epilepsy Genes" />
         <div class="cards-3">
           <div class="callout blue">
             <strong class="title" style="color:#1d4ed8;">Model M8: Calibrated Intercept + Slopes (4 d.f.)</strong>
-            Slope-only <strong>M7</strong> leaves the gene intercept &beta;<sub>g0</sub> unconstrained, absorbing uniform risk shifts when nearly all coding sites in a constrained channel/transporter are deleterious. <strong>M8</strong> adds the synonymous-centered shift <em>Z</em><sub>loc</sub> (&lambda;<sub>GC</sub> = 0.992).
+            Slope-only <strong>M7</strong> leaves the gene intercept &beta;<sub>g0</sub> free, absorbing uniform coding risk shifts. Adding synonymous-centered <em>Z</em><sub>loc</sub> (&lambda;<sub>GC</sub> = 0.992) uncovers <strong>SLC2A1</strong>, <strong>BIRC6</strong>, and <strong>GRIK5</strong> in <code>GGE</code>.
           </div>
           <div class="callout violet">
             <strong class="title" style="color:#6d28d9;">Model M9: Folded-Normal Dispersion (SKAT-O Analogue)</strong>
-            Regresses unsigned deviations |&beta;&#770;<sub>gj</sub> &minus; &beta;&#772;<sub>g</sub>| on AlphaMissense, pLoF, and WES constraint, rescuing synaptic scaffolds and cortical lamination genes with sharp domain-specific dispersion (<em>NBEA</em>, <em>RELN</em>).
+            Regresses unsigned deviations |&beta;&#770;<sub>gj</sub> &minus; &beta;&#772;<sub>g</sub>| on AlphaMissense, pLoF, and WES constraint, uncovering postsynaptic scaffold <strong>NBEA</strong> (<code>DEE</code>) and cortical migration ligand <strong>RELN</strong> (<code>EPI</code>).
           </div>
           <div class="callout green">
             <strong class="title" style="color:#047857;">Synonymous-Anchored Baseline (Synbase)</strong>
-            Compact, hyper-constrained synaptic proteins (&lt;25 ultra-rare non-synonymous sites due to purifying selection) gain a crisp within-gene neutral anchor via synonymous variants (<em>NR2F1</em>, <em>GABRA1</em>, <em>LGI1</em>, <em>STX1B</em>, <em>SCN8A</em>).
+            Anchoring &beta;<sub>g0</sub> on within-gene neutral synonymous variants rescues compact, hyper-constrained loci missed across all cohorts: <strong>NR2F1</strong> (<code>DEE</code>), <strong>LGI1</strong> (<code>NAFE</code>), and <strong>GABRA1</strong> (<code>GGE</code>).
           </div>
         </div>
       </div>
       <div class="slide-ftr">
-        <span>Epi25 Exome Sequencing Resource (20,979 Cases, 33,444 Controls)</span>
+        <span>Zero overlap with prior M7 or Epi25 Browser hits across DEE, GGE, NAFE, or EPI</span>
         <span>Slide 1 of 4 &bull; Use &larr; / &rarr; keys</span>
       </div>
     </section>
@@ -201,23 +180,23 @@
     <!-- SLIDE 2 -->
     <section class="slide">
       <div class="slide-hdr">
-        <h2>2. Model M8 (Intercept + Slopes): Actionable &amp; Emerging Epilepsy Genes</h2>
-        <span class="badge">Missed by Slope-Only M7 (p<sub>M7</sub> &ge; 2.5e-6)</span>
+        <h2>2. Model M8 (Intercept + Slopes): Newly Uncovered GGE Mechanisms</h2>
+        <span class="badge">Missed Across All 4 Cohorts in M7 &amp; Browser</span>
       </div>
       <div class="slide-body">
-        <img class="hero-img" src="figures/slide_fig1_m8_bio.jpg" alt="M8 Intercept Rescue Biology" style="max-height:66%;" />
+        <img class="hero-img" src="figures/slide_fig1_m8_bio.jpg?v=20261113b" alt="M8 Strictly Novel GGE Biology" />
         <div class="cards-3">
           <div class="callout green">
             <strong class="title" style="color:#047857;">SLC2A1 / GLUT1 in GGE (p<sub>M8</sub> = 1.03e-6; p<sub>syn</sub> = 3.65e-8)</strong>
-            0 case pLoFs in GGE, but 18 cases vs. 10 controls carry AM &ge; 0.564 pore missense (5.5&times; rate ratio, <em>Z</em><sub>loc</sub> = +3.55). Directly actionable: <strong>ketogenic diet</strong> supplies ketone bodies via MCT1 to bypass BBB GLUT1 deficiency.
+            0 case pLoFs in GGE, driven by 18 case vs. 10 control AM &ge; 0.564 pore missense (5.5&times; rate excess, <em>Z</em><sub>loc</sub> = +3.55). Directly actionable: <strong>ketogenic diet</strong> supplies ketones via MCT1 to bypass BBB GLUT1.
           </div>
-          <div class="callout red">
-            <strong class="title" style="color:#b91c1c;">SCN1A in Focal Epilepsy (NAFE, p<sub>M8</sub> = 2.40e-6) &amp; SCN2A (DEE)</strong>
-            6 QC-passing case pLoFs vs. 2 controls + missense shift (<em>Z</em><sub>loc</sub> = +2.80) makes <em>SCN1A</em> significant across all 4 Epi25 syndromes. <strong>Clinical alert:</strong> first-line focal Na<sup>+</sup>-blockers (CBZ/OXC/PHT) aggravate <em>SCN1A</em> LoF seizures!
+          <div class="callout blue">
+            <strong class="title" style="color:#1d4ed8;">BIRC6 / BRUCE in GGE (p<sub>M8</sub> = 1.83e-6; 4.74e-10 at AF &le; 10<sup>-3</sup>)</strong>
+            Giant horseshoe E2/E3 ubiquitin ligase (pLI = 1.0, LOEUF = 0.09) ubiquitinating axonal LC3/GABARAP to restrain autophagosome buildup and protect GABA<sub>A</sub> receptor surface trafficking (4.1&times; GGE pLoF excess).
           </div>
-          <div class="callout amber">
-            <strong class="title" style="color:#92400e;">BIRC6 (p<sub>M8</sub> = 1.83e-6) &amp; GRIK5 (Z<sub>loc</sub> = +4.17) in GGE</strong>
-            <em>BIRC6</em> (BRUCE, pLI = 1.0; p<sub>M8</sub> = 4.74e-10 at AF &le; 0.001) restrains axonal LC3/GABARAP autophagy upstream of GABA<sub>A</sub> trafficking. <em>GRIK5</em> (GluK5 kainate receptor) jumps 550&times; over M7 (6 vs. 3 QC pLoFs).
+          <div class="callout plum">
+            <strong class="title" style="color:#701a75;">GRIK5 / GluK5 in GGE (p<sub>M8</sub> = 2.45e-5 vs. M7 = 0.013; 550&times; Gain)</strong>
+            Strongest positive intercept shift among novel GGE receptors (<em>Z</em><sub>loc</sub> = +4.17, 6 vs. 3 QC pLoFs = 6.1&times; excess + AM &gt; 0.99 pore/LBD missense) in the high-affinity GluK2/GluK5 kainate receptor.
           </div>
         </div>
       </div>
@@ -230,23 +209,23 @@
     <!-- SLIDE 3 -->
     <section class="slide">
       <div class="slide-hdr">
-        <h2>3. M9 Dispersion &amp; Synonymous Baseline: Synaptic Scaffolds &amp; Microcircuits</h2>
-        <span class="badge">Postsynaptic Trafficking, Cortical Migration &amp; SNARE</span>
+        <h2>3. M9 Dispersion &amp; Synonymous Baseline: Scaffolds, Migration &amp; Inhibitory Tone</h2>
+        <span class="badge">Postsynaptic Trafficking, Lamination &amp; GABAergic Fate</span>
       </div>
       <div class="slide-body">
-        <img class="hero-img" src="figures/slide_fig2_m9_bio.jpg" alt="M9 and Synbase Biology" style="max-height:66%;" />
+        <img class="hero-img" src="figures/slide_fig2_m9_bio.jpg?v=20261113b" alt="M9 and Synbase Strictly Novel Biology" />
         <div class="cards-3">
           <div class="callout violet">
             <strong class="title" style="color:#6d28d9;">NBEA / Neurobeachin in DEE (p<sub>M9</sub> = 3.18e-7 vs. Browser 1.64e-4)</strong>
-            PKA-anchoring trans-Golgi scaffold routing GABA<sub>A</sub> and AMPA receptors to dendritic spines. Shows 12.9&times; DEE pLoF rate excess (3/1,937 cases vs. 2/16,710 controls) plus sharp domain-specific missense dispersion.
+            PKA-anchoring trans-Golgi scaffold routing GABA<sub>A</sub> and AMPA receptors to dendritic spines. Shows 12.9&times; DEE pLoF rate excess (3/1,937 cases vs. 2/16,710 controls) plus sharp domain missense dispersion.
           </div>
           <div class="callout amber">
             <strong class="title" style="color:#92400e;">RELN in EPI (p<sub>M9</sub> = 2.67e-7) &amp; LGI1 in NAFE (p<sub>syn</sub> = 5.07e-7)</strong>
-            <em>RELN</em> (Reelin) governs cortical lamination and lateral temporal epilepsy (ADLTE; missed by M7 at p = 0.023). Secreted <em>LGI1</em> bridges ADAM22/23 across focal synapses (9 case vs. 1 control pLoFs = 16.3&times;).
+            <em>RELN</em> (Reelin) governs cortical lamination &amp; lateral temporal epilepsy (ADLTE; missed across all M7 cohorts at p &ge; 0.015). Secreted <em>LGI1</em> bridges ADAM22/23 across focal synapses (9 vs. 1 pLoFs = 16.3&times;).
           </div>
           <div class="callout green">
-            <strong class="title" style="color:#047857;">Compact Synaptic Loci Rescued by Synonymous Anchor</strong>
-            Adding within-gene neutral synonymous variants rescues <strong>NR2F1</strong> (DEE, 8.66e-14, R<sup>2</sup> = 64%), <strong>GABRA1</strong> (GGE, 5.59e-7, 12.2&times; pLoF), <strong>SCN8A</strong> (DEE, 1.81e-6), and <strong>STX1B</strong> (DEE, 1.89e-6, 7/0 pLoF).
+            <strong class="title" style="color:#047857;">NR2F1 (DEE, 8.66e-14) &amp; GABRA1 (GGE, 5.59e-7)</strong>
+            Anchoring compact genes on within-gene synonymous variants rescues cortical MGE interneuron fate TF <strong>NR2F1</strong> (R<sup>2</sup> = 64%) and postsynaptic GABA<sub>A</sub> &alpha;<sub>1</sub> channel <strong>GABRA1</strong> (12.2&times; GGE pLoF excess).
           </div>
         </div>
       </div>
@@ -259,8 +238,8 @@
     <!-- SLIDE 4 -->
     <section class="slide">
       <div class="slide-hdr">
-        <h2>4. Translational Reference Scorecard: Non-M7 Epilepsy Discoveries (AF &le; 0.0001)</h2>
-        <span class="badge">12 Biologically Validated Loci</span>
+        <h2>4. Scorecard: Strictly Newly Uncovered Epilepsy Genes (Missed Across All M7 Cohorts)</h2>
+        <span class="badge">8 Validated Non-M7 Discoveries</span>
       </div>
       <div class="slide-body">
         <table class="scorecard">
@@ -268,8 +247,8 @@
             <tr>
               <th>Gene (Cohort)</th>
               <th>Rescuing Model</th>
-              <th>Epi25 Browser <em>p</em></th>
-              <th>M7 (Slopes) <em>p</em></th>
+              <th>Best Browser <em>p</em></th>
+              <th>Best M7 <em>p</em> (Any Cohort)</th>
               <th>New Model <em>p</em></th>
               <th><em>Z</em><sub>loc</sub> / QC Carriers</th>
               <th>Neurobiological Mechanism &amp; Clinical Take-Home</th>
@@ -277,21 +256,17 @@
           </thead>
           <tbody>
             <tr><td><strong>SLC2A1</strong> (GGE)</td><td>M8 + Synbase</td><td>5.64e-05</td><td>2.55e-05</td><td><strong>1.03e-06</strong> (3.7e-8)</td><td>+3.55 (18/10 AM+)</td><td>BBB GLUT1 hypomorphic missense (0 pLoF); <strong>ketogenic diet precision therapy</strong></td></tr>
-            <tr><td><strong>BIRC6</strong> (GGE)</td><td>M8 (Int+Slopes)</td><td>1.96e-03</td><td>1.11e-05</td><td><strong>1.83e-06</strong></td><td>+2.57 (4/3 pLoF)</td><td>Axonal BRUCE E2/E3 ligase (pLI=1.0); restrains LC3/GABARAP autophagy (4.7e-10 at AF&le;10<sup>-3</sup>)</td></tr>
-            <tr><td><strong>SCN1A</strong> (NAFE)</td><td>M8 (Int+Slopes)</td><td>4.17e-03</td><td>2.17e-05</td><td><strong>2.40e-06</strong></td><td>+2.80 (6/2 pLoF)</td><td>Interneuron Na<sub>V</sub>1.1 LoF in focal epilepsy; <strong>contraindicates CBZ/OXC/PHT</strong></td></tr>
-            <tr><td><strong>SCN2A</strong> (DEE)</td><td>M8 (cusp)</td><td>4.16e-04</td><td>9.12e-06</td><td><strong>2.80e-06</strong></td><td>+2.39 (2/5 pLoF)</td><td>Pyramidal AIS Na<sub>V</sub>1.2 missense GoF encephalopathy (Na<sup>+</sup>-channel blockers effective)</td></tr>
-            <tr><td><strong>SLC6A1</strong> (EPI)</td><td>M8 (cusp)</td><td>9.49e-05</td><td>3.43e-05</td><td><strong>2.89e-06</strong></td><td>+3.15 (2/0 pLoF)</td><td>GAT-1 synaptic cleft GABA reuptake transporter (12&times; boost over slope-only M7)</td></tr>
-            <tr><td><strong>GRIK5</strong> (GGE)</td><td>M8 (suggestive)</td><td>1.13e-03</td><td>1.34e-02</td><td><strong>2.45e-05</strong></td><td>+4.17 (6/3 pLoF)</td><td>GluK5 (KA2) high-affinity kainate glutamate receptor subunit (550&times; gain over M7)</td></tr>
-            <tr><td><strong>NBEA</strong> (DEE)</td><td>M9 Dispersion</td><td>1.64e-04</td><td>9.03e-06</td><td><strong>3.18e-07</strong></td><td>+1.26 (3/2 pLoF)</td><td>Neurobeachin PKA scaffold; dendritic GABA<sub>A</sub> &amp; AMPA trafficking (12.9&times; pLoF rate)</td></tr>
-            <tr><td><strong>RELN</strong> (EPI)</td><td>M9 Dispersion</td><td>9.47e-02</td><td>2.27e-02</td><td><strong>2.67e-07</strong></td><td>+1.39 (9/7 pLoF)</td><td>Secreted Reelin ApoER2/VLDLR ligand; autosomal-dominant lateral temporal epilepsy</td></tr>
-            <tr><td><strong>NR2F1</strong> (DEE)</td><td>Synbase M7</td><td>3.01e-02</td><td>&lt;25 coding</td><td><strong>8.66e-14</strong></td><td>R<sup>2</sup> = 64.0%</td><td>Nuclear receptor governing cortical MGE interneuron specification</td></tr>
-            <tr><td><strong>LGI1</strong> (NAFE)</td><td>Synbase M7</td><td>1.37e-05</td><td>3.37e-06</td><td><strong>5.07e-07</strong></td><td>+1.82 (9/1 pLoF)</td><td>Secreted trans-synaptic ADAM22/ADAM23 Kv1/AMPA bridge in focal epilepsy (16.3&times; pLoF)</td></tr>
-            <tr><td><strong>GABRA1</strong> (GGE)</td><td>Synbase / M8</td><td>6.23e-03</td><td>7.50e-05</td><td><strong>5.59e-07</strong></td><td>+3.05 (4/1 pLoF)</td><td>Postsynaptic GABA<sub>A</sub> &alpha;<sub>1</sub> receptor subunit (12.2&times; GGE pLoF excess)</td></tr>
-            <tr><td><strong>SCN8A / STX1B</strong> (DEE)</td><td>Synbase / M8</td><td>2.6e-4 / 2.3e-7</td><td>3.4e-4 / 3.2e-5</td><td><strong>1.81e-06 / 1.89e-06</strong></td><td>+2.10 / +3.50</td><td>AIS Na<sub>V</sub>1.6 GoF channel &amp; presynaptic SNARE Syntaxin-1B (7/0 case/ctrl pLoFs)</td></tr>
+            <tr><td><strong>BIRC6</strong> (GGE)</td><td>M8 (4 d.f.)</td><td>1.96e-03</td><td>1.11e-05</td><td><strong>1.83e-06</strong></td><td>+2.57 (4/3 pLoF)</td><td>Axonal BRUCE E2/E3 ligase (pLI=1.0); restrains LC3/GABARAP autophagy (4.7e-10 at AF&le;10<sup>-3</sup>)</td></tr>
+            <tr><td><strong>GRIK5</strong> (GGE)</td><td>M8 (suggestive)</td><td>1.13e-03</td><td>1.34e-02</td><td><strong>2.45e-05</strong></td><td>+4.17 (6/3 pLoF)</td><td>GluK5 (KA2) high-affinity kainate glutamate receptor subunit (550&times; gain over M7; 6.1&times; pLoF)</td></tr>
+            <tr><td><strong>NBEA</strong> (DEE)</td><td>M9 Dispersion</td><td>1.64e-04</td><td>9.03e-06</td><td><strong>3.18e-07</strong></td><td>+1.26 (3/2 pLoF)</td><td>Neurobeachin PKA scaffold; dendritic GABA<sub>A</sub> &amp; AMPA trafficking (12.9&times; DEE pLoF rate)</td></tr>
+            <tr><td><strong>RELN</strong> (EPI)</td><td>M9 Dispersion</td><td>5.34e-02</td><td>1.51e-02</td><td><strong>2.67e-07</strong></td><td>+1.39 (9/7 pLoF)</td><td>Secreted Reelin ApoER2/VLDLR ligand; cortical lamination &amp; lateral temporal epilepsy (ADLTE)</td></tr>
+            <tr><td><strong>NR2F1</strong> (DEE)</td><td>Synbase M7</td><td>3.01e-02</td><td>1.70e-01</td><td><strong>8.66e-14</strong></td><td>R<sup>2</sup> = 64% (2/0 pLoF)</td><td>COUP-TFI nuclear receptor governing cortical MGE interneuron specification (19 coding + 47 syn)</td></tr>
+            <tr><td><strong>LGI1</strong> (NAFE)</td><td>Synbase M7</td><td>1.37e-05</td><td>3.37e-06</td><td><strong>5.07e-07</strong></td><td>+1.82 (9/1 pLoF)</td><td>Secreted trans-synaptic ADAM22/ADAM23 Kv1/AMPA bridge in focal epilepsy (16.3&times; NAFE pLoF)</td></tr>
+            <tr><td><strong>GABRA1</strong> (GGE)</td><td>Synbase / M8</td><td>5.19e-04</td><td>7.50e-05</td><td><strong>5.59e-07</strong></td><td>+3.05 (4/1 pLoF)</td><td>Postsynaptic GABA<sub>A</sub> &alpha;<sub>1</sub> chloride channel subunit (12.2&times; GGE pLoF excess)</td></tr>
           </tbody>
         </table>
-        <div class="callout blue" style="padding:8px 12px;">
-          <strong>Rigorous QC Filter Applied:</strong> Non-biological hits caused by negative intercept shifts from somatic V(D)J recombination (<em>IGLL5</em>, <em>Z</em><sub>loc</sub> &lt; 0), giant repeat depletion (<em>AHNAK2</em>, <em>Z</em><sub>loc</sub> &lt; 0), or QC-failed multi-nucleotide indel clusters (<em>PAK5</em> chr20:9580806&ndash;9580821, <em>ENAH</em>) are explicitly excluded.
+        <div class="callout blue" style="padding:9px 14px;">
+          <strong>Strict Novelty &amp; QC Filter:</strong> Genes previously captured by M7 or Epi25 Browser in <em>any</em> epilepsy cohort (<em>SCN1A</em>, <em>SLC6A1</em>, <em>STX1B</em>) or canonical DEE sodium channels (<em>SCN2A</em>, <em>SCN8A</em>) are excluded so every row above is a genuinely newly uncovered locus (<em>p</em><sub>M7</sub> &ge; 2.5e-6 and <em>p</em><sub>Browser</sub> &ge; 2.5e-6 across all 4 cohorts). Non-biological blood V(D)J/repeat shifts (<em>IGLL5</em>, <em>AHNAK2</em>) and QC-failed indel clusters (<em>PAK5</em>, <em>ENAH</em>) are also excluded.
         </div>
       </div>
       <div class="slide-ftr">
